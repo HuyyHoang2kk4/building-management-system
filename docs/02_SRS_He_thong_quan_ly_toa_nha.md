@@ -1,788 +1,655 @@
 # ĐẶC TẢ YÊU CẦU PHẦN MỀM (SRS)
 ## Software Requirements Specification
-### Smart Building Management System – Hệ thống quản lý vận hành tòa nhà
+### Rental Property Management System – Hệ thống quản lý phòng trọ và nhà cho thuê
 
-- **Phiên bản:** 1.0 – Bản dự thảo
-- **Ngày lập:** 04/11/2026
-- **Tài liệu đầu vào:** BRD – Hệ thống quản lý tòa nhà (Building Management System), phiên bản 0.2
-- **Mục đích:** Chuyển hóa yêu cầu nghiệp vụ trong BRD thành yêu cầu phần mềm có thể thiết kế, phát triển và kiểm thử.
+- **Phiên bản:** 2.0 – Bản cập nhật theo BRD mới
+- **Ngày lập:** 06/11/2026
+- **Tác giả:** Nguyễn Huy Hoàng
+- **Tài liệu đầu vào:** BRD – Hệ thống quản lý nhà cho thuê (Rental Property Management System), phiên bản ngày 06/11/2026.
+- **Mục đích:** Chuyển hoá các yêu cầu nghiệp vụ trong BRD thành đặc tả yêu cầu phần mềm chi tiết, phục vụ thiết kế cơ sở dữ liệu, API, giao diện người dùng và kịch bản kiểm thử.
 
-> Các yêu cầu chức năng được đánh mã `FR`; yêu cầu phi chức năng được đánh mã `NFR`. Những chi tiết chưa được BRD xác định rõ được ghi là **đề xuất** hoặc đưa vào mục cần xác nhận, không xem là yêu cầu đã được chủ đầu tư chốt.
+> **Quy ước mã hiệu:**
+> - `FR-xxx`: Yêu cầu chức năng (Functional Requirements).
+> - `NFR-xxx`: Yêu cầu phi chức năng (Non-Functional Requirements).
+> - `RULE-xxx`: Quy tắc nghiệp vụ (Business Rules).
+> - `AC-xxx`: Tiêu chí nghiệm thu (Acceptance Criteria).
 
 ---
 
 # 1. GIỚI THIỆU (INTRODUCTION)
 
 ## 1.1. Mục đích tài liệu
+Tài liệu SRS này đặc tả chi tiết các yêu cầu kỹ thuật và chức năng của **Rental Property Management System (RPMS)**, làm căn cứ chính thức cho:
+- Thiết kế kiến trúc phần mềm và cơ sở dữ liệu quan hệ (ERD).
+- Xây dựng giao diện người dùng (UI/UX) theo định hướng Mobile-First.
+- Phát triển các dịch vụ Backend RESTful API và động cơ nghiệp vụ (Billing & Debt).
+- Lập kế hoạch kiểm thử (Test Plan), kịch bản kiểm thử (Test Cases) và nghiệm thu phần mềm.
 
-Tài liệu SRS mô tả các yêu cầu phần mềm của Smart Building Management System, làm căn cứ cho:
-- Thiết kế kiến trúc và cơ sở dữ liệu.
-- Thiết kế API và giao diện người dùng.
-- Phân chia công việc phát triển.
-- Xây dựng kịch bản kiểm thử.
-- Đánh giá và nghiệm thu sản phẩm.
+## 1.2. Phạm vi sản phẩm (Product Scope)
+Hệ thống là ứng dụng Web Responsive tập trung hỗ trợ chủ nhà và người quản lý điều hành một hoặc nhiều khu trọ / nhà cho thuê, tập trung vào các nghiệp vụ cốt lõi:
+- Quản lý danh mục khu trọ, phòng và dữ liệu người thuê.
+- Quản lý hợp đồng thuê và tiền đặt cọc.
+- Ghi nhận chỉ số điện nước theo ngày đo và tự động tính tiền điện theo số thực tế.
+- Tính tiền nước linh hoạt theo 3 hình thức: theo chỉ số đồng hồ, theo số người ở, hoặc khoán cố định.
+- Tự động lập hoá đơn dịch vụ theo kỳ, theo dõi thanh toán và công nợ.
+- Lưu trữ lịch sử và chi phí sửa chữa thiết bị.
+- Phân quyền vận hành tinh gọn giữa Chủ nhà (Owner) và Nhân viên thu phí (Staff).
 
-## 1.2. Phạm vi sản phẩm
+### Danh sách các phân hệ chính:
 
-Hệ thống là ứng dụng web quản lý tập trung một hoặc nhiều tòa nhà, hỗ trợ Ban quản lý kiểm soát dữ liệu tòa nhà, căn hộ, cư dân, hợp đồng, phí dịch vụ, hóa đơn, thanh toán, công nợ, sự cố và bảo trì thiết bị.
-
-Các phân hệ chính:
-
-| Mã | Phân hệ | Mô tả |
+| Mã phân hệ | Tên phân hệ | Mô tả ngắn gọn |
 |---|---|---|
-| BMS-01 | Quản trị dữ liệu và nhập dữ liệu | Quản lý danh mục, import Excel/CSV, chuẩn hóa và kiểm tra dữ liệu |
-| BMS-02 | Tòa nhà, căn hộ, cư dân và hợp đồng | Quản lý thông tin căn hộ, cư dân, hợp đồng và phương tiện |
-| BMS-03 | Phí, hóa đơn và thanh toán | Ghi chỉ số, tính phí, tạo hóa đơn, ghi nhận thanh toán và công nợ |
-| BMS-04 | Dashboard và báo cáo | KPI điều hành, biểu đồ, cảnh báo và xuất báo cáo |
-| BMS-05 | Sự cố và SLA | Tiếp nhận, phân loại, giao việc, theo dõi và đánh giá sự cố |
-| BMS-06 | Thiết bị và bảo trì | Quản lý thiết bị, lịch bảo trì, công việc và lịch sử sửa chữa |
-| BMS-07 | Thông báo | Gửi thông báo theo tòa, tầng, nhóm hoặc cá nhân |
-| BMS-08 | Phân quyền và nhật ký | RBAC, giới hạn dữ liệu theo tòa và audit log |
+| **RPMS-01** | Quản trị Danh mục & Dữ liệu | Quản lý khu trọ, danh sách phòng, import dữ liệu từ Excel/CSV, chuẩn hoá dữ liệu |
+| **RPMS-02** | Người thuê & Hợp đồng | Lưu thông tin người thuê, quản lý số người ở, vòng đời hợp đồng, tiền cọc |
+| **RPMS-03** | Chỉ số & Động cơ tính phí (Billing Engine) | Ghi nhận chỉ số điện nước theo ngày đo, tính tiền điện theo số, tính tiền nước 3 hình thức |
+| **RPMS-04** | Hoá đơn, Thanh toán & Công nợ (Debt Engine) | Tạo hoá đơn nháp, duyệt phát hành, ghi nhận thanh toán, theo dõi công nợ, nhắc nợ |
+| **RPMS-05** | Thiết bị & Lịch sử sửa chữa | Danh mục thiết bị dùng chung/trong phòng, ghi nhận lịch sử và chi phí sửa chữa |
+| **RPMS-06** | Phân quyền & Nhật ký (RBAC & Audit) | Quản lý tài khoản Owner/Staff, phân quyền theo khu trọ, ghi nhật ký thao tác |
 
-## 1.3. Đối tượng sử dụng
+## 1.3. Đối tượng sử dụng (Stakeholders & Users)
 
-| Vai trò | Nhu cầu sử dụng |
+| Vai trò | Phân loại | Trách nhiệm & Quyền hạn chính |
+|---|---|---|
+| **Chủ nhà (Owner)** | Người dùng hệ thống (User) | Toàn quyền trên tất cả các khu trọ: cấu hình giá, quản lý phòng, hợp đồng, duyệt hoá đơn, xem báo cáo doanh thu/công nợ, quản lý tài khoản nhân viên. |
+| **Nhân viên thu phí (Staff)** | Người dùng hệ thống (User) | Được phân công theo từng khu trọ cụ thể: ghi chỉ số điện nước tại phòng, ghi nhận thanh toán của khách, xem danh sách phòng và hoá đơn. Không có quyền sửa giá, xoá hoá đơn hay thay đổi hợp đồng. |
+| **Người thuê (Tenant)** | **Dữ liệu quản lý (Master Data)** | **Không phải là tài khoản đăng nhập hệ thống.** Thông tin người thuê chỉ được lưu trữ để phục vụ lập hợp đồng, tính phí theo đầu người và đối soát công nợ. |
+
+## 1.4. Định nghĩa và từ viết tắt
+
+| Thuật ngữ | Ý nghĩa đầy đủ |
 |---|---|
-| Executive / Chủ đầu tư | Xem dashboard, báo cáo thu phí, công nợ, sự cố, tỷ lệ lấp đầy |
-| Admin / Ban quản lý | Quản trị dữ liệu, điều phối nghiệp vụ, quản lý người dùng và cấu hình |
-| Accountant / Kế toán | Nhập chỉ số, cấu hình phí, tạo hóa đơn, ghi nhận thanh toán, theo dõi công nợ |
-| Technician / Kỹ thuật | Tiếp nhận và xử lý sự cố, thực hiện bảo trì, cập nhật kết quả |
-| Resident / Cư dân | Xem hóa đơn, gửi và theo dõi sự cố, nhận thông báo |
-
-## 1.4. Định nghĩa và thuật ngữ
-
-| Thuật ngữ | Ý nghĩa |
-|---|---|
-| BMS | Building Management System – Hệ thống quản lý tòa nhà |
-| BRD | Business Requirements Document – Tài liệu yêu cầu nghiệp vụ |
-| SRS | Software Requirements Specification – Tài liệu đặc tả yêu cầu phần mềm |
-| Master Data | Dữ liệu danh mục: tòa nhà, căn hộ, cư dân, thiết bị, bảng giá |
-| Transactional Data | Dữ liệu giao dịch: hợp đồng, chỉ số, hóa đơn, thanh toán, sự cố, bảo trì |
-| Billing Engine | Thành phần tính phí và tạo hóa đơn |
-| Debt Engine | Thành phần theo dõi công nợ và nhắc nợ |
-| SLA | Cam kết thời hạn tiếp nhận và xử lý sự cố |
-| RBAC | Phân quyền dựa trên vai trò |
-| Audit Log | Nhật ký thao tác quan trọng |
-| KPI | Chỉ số đánh giá hiệu quả |
-| CCR | Context – Complication – Resolution |
-
-## 1.5. Tài liệu tham chiếu
-
-- BRD – Hệ thống quản lý tòa nhà (Building Management System), phiên bản 0.2, ngày 04/11/2026.
-- Tài liệu SRS tham khảo do người dùng cung cấp: [03_Dac_ta_Yeu_cau_Phan_mem_SRS.md](https://github.com/cuongpt083/gsj-localbrand-src/blob/main/docs/03_Dac_ta_Yeu_cau_Phan_mem_SRS.md).
+| **RPMS** | Rental Property Management System – Hệ thống quản lý nhà cho thuê / phòng trọ |
+| **Property** | Khu trọ, toà nhà căn hộ mini hoặc nhà nguyên căn cho thuê |
+| **Room** | Phòng trọ hoặc không gian cho thuê cụ thể có mã nhận diện riêng |
+| **Master Data** | Dữ liệu danh mục nền tảng: khu trọ, phòng, thông tin người thuê, thiết bị, bảng giá |
+| **Transactional Data** | Dữ liệu phát sinh theo giao dịch: hợp đồng, số đo điện nước, hoá đơn, phiếu thu, nhật ký sửa chữa |
+| **Billing Engine** | Động cơ tự động tính toán chi phí và sinh hoá đơn theo kỳ |
+| **Debt Engine** | Động cơ phân loại công nợ và theo dõi trạng thái thanh toán |
+| **RBAC** | Role-Based Access Control – Phân quyền truy cập dựa trên vai trò |
+| **Audit Log** | Nhật ký ghi nhận các thao tác chỉnh sửa dữ liệu quan trọng |
 
 ---
 
-# 2. MÔ TẢ TỔNG QUAN HỆ THỐNG (SYSTEM OVERVIEW)
+# 2. KIẾN TRÚC TỔNG THỂ & LUỒNG NGHIỆP VỤ
 
-## 2.1. Kiến trúc tổng thể
-
-**Định hướng đề xuất:** Web Client – REST API – Business Services – Relational Database. BRD chưa bắt buộc công nghệ triển khai cụ thể.
-
-- **Presentation Layer:** Giao diện web responsive cho Ban quản lý, kế toán, kỹ thuật và cư dân.
-- **Application/API Layer:** Tiếp nhận request, xác thực, kiểm tra quyền và điều phối nghiệp vụ.
-- **Business Layer:** Xử lý tính phí, hóa đơn, công nợ, SLA, bảo trì, thông báo và báo cáo.
-- **Data Layer:** Lưu dữ liệu danh mục, giao dịch, tệp đính kèm và nhật ký.
-
-Nếu sử dụng stack Java/React, có thể cân nhắc React, Java Spring Boot và PostgreSQL. Đây là định hướng kỹ thuật tham khảo, cần được xác nhận riêng.
+## 2.1. Kiến trúc hệ thống tổng quát
+Hệ thống được thiết kế theo mô hình 3 tầng hiện đại, tối ưu hoá cho trải nghiệm người dùng di động (Mobile Web Responsive):
 
 ```mermaid
 flowchart TB
-    subgraph CLIENT["TẦNG GIAO DIỆN – WEB RESPONSIVE"]
-        A["Executive Dashboard"]
-        B["Admin / Quản lý"]
-        C["Kế toán"]
-        D["Kỹ thuật"]
-        E["Cổng cư dân"]
+    subgraph CLIENT["TẦNG TRÌNH DIỄN (FRONTEND - MOBILE FIRST)"]
+        UI1["Giao diện Chủ nhà (Desktop / Mobile Tablet)"]
+        UI2["Giao diện Nhân viên ghi số & Thu tiền (Mobile Smartphone)"]
     end
-    subgraph APP["TẦNG ỨNG DỤNG VÀ NGHIỆP VỤ"]
-        API["REST API / Authentication / Authorization"]
-        S1["Building & Resident"]
-        S2["Contract"]
-        S3["Billing & Payment"]
-        S4["Debt & Reminder"]
-        S5["Ticket & SLA"]
-        S6["Maintenance Scheduler"]
-        S7["Notification"]
-        S8["Dashboard & Reporting"]
-        S9["Import & Audit"]
+
+    subgraph API_GW["TẦNG ỨNG DỤNG & DỊCH VỤ (BACKEND API)"]
+        AUTH["Xác thực JWT & Phân quyền RBAC / Phân quyền theo Khu trọ"]
+        S1["Quản lý Khu trọ & Phòng (Properties & Rooms Service)"]
+        S2["Hợp đồng & Người thuê (Contracts & Tenants Service)"]
+        S3["Động cơ tính phí (Billing Engine - Điện, Nước, Dịch vụ)"]
+        S4["Hoá đơn & Công nợ (Invoices & Debt Service)"]
+        S5["Thiết bị & Sửa chữa (Equipment & Repairs Service)"]
+        S6["Nhập/Xuất Excel & Audit Log Service"]
     end
-    DB[("Relational Database")]
-    FS[("File Storage")]
-    LOG[("Audit Log")]
-    CLIENT <--> API
-    API <--> S1
-    API <--> S2
-    API <--> S3
-    API <--> S4
-    API <--> S5
-    API <--> S6
-    API <--> S7
-    API <--> S8
-    API <--> S9
-    APP <--> DB
-    APP <--> FS
-    API --> LOG
+
+    subgraph DATA["TẦNG DỮ LIỆU (PERSISTENCE)"]
+        DB[("Cơ sở dữ liệu quan hệ (PostgreSQL / MySQL)")]
+        LOGS[("Bảng lưu Audit Logs")]
+    end
+
+    CLIENT <--> AUTH
+    AUTH --> S1 & S2 & S3 & S4 & S5 & S6
+    S1 & S2 & S3 & S4 & S5 & S6 <--> DB
+    S3 & S4 & S6 --> LOGS
 ```
 
-## 2.2. Các luồng nghiệp vụ chính
+## 2.2. Các luồng nghiệp vụ cốt lõi
 
-### 2.2.1. Chu kỳ thu phí
+### 2.2.1. Luồng chốt chỉ số và tạo hoá đơn hằng tháng
 
 ```mermaid
 flowchart TD
-    A["Bắt đầu kỳ thu phí"] --> B["Nhập / kiểm tra chỉ số điện nước"]
-    B --> C{"Chỉ số hợp lệ?"}
-    C -- "Không" --> D["Báo lỗi, yêu cầu kiểm tra"]
-    D --> B
-    C -- "Có" --> E["Lấy bảng giá có hiệu lực"]
-    E --> F["Tính các khoản phí"]
-    F --> G["Kiểm tra mức tiêu thụ bất thường"]
-    G --> H["Tạo hóa đơn DRAFT"]
-    H --> I["Kế toán kiểm tra và duyệt"]
-    I --> J{"Được duyệt?"}
-    J -- "Không" --> F
-    J -- "Có" --> K["Phát hành hóa đơn"]
-    K --> L["Ghi nhận thanh toán"]
-    L --> M["Cập nhật trạng thái và công nợ"]
-    M --> N["Cập nhật dashboard / báo cáo"]
+    A["Bắt đầu kỳ tính tiền"] --> B["Nhân viên / Chủ nhà đến phòng ghi chỉ số"]
+    B --> C["Nhập ngày đo và Chỉ số điện/nước mới vào hệ thống"]
+    C --> D{"Kiểm tra: Chỉ số mới ≥ Chỉ số cũ?"}
+    D -- "Sai (Bất thường)" --> E["Cảnh báo nhập sai hoặc công tơ quay vòng"]
+    E --> C
+    D -- "Đúng" --> F["Hệ thống tính tiêu thụ: Chỉ số mới - Chỉ số cũ"]
+    F --> G["Tính tiền điện: Tiêu thụ × Đơn giá điện (VD: 4.000đ/số)"]
+    G --> H{"Hình thức tính nước của phòng?"}
+    H -- "Theo đồng hồ" --> I["Tiền nước = Tiêu thụ m³ × Đơn giá/m³"]
+    H -- "Theo đầu người" --> J["Tiền nước = Số người trong phòng × Đơn giá/người"]
+    H -- "Khoán cố định" --> K["Tiền nước = Mức khoán cố định (VD: 500.000đ/tháng)"]
+    I & J & K --> L["Cộng tiền thuê phòng + Phí dịch vụ khác (rác, net, xe...)"]
+    L --> M["Áp dụng Giảm trừ hoặc Nợ cũ/Phạt chậm (nếu có)"]
+    M --> N["Sinh hoá đơn nháp (DRAFT)"]
+    N --> O["Chủ nhà kiểm tra và Phê duyệt phát hành (ISSUED)"]
 ```
 
-### 2.2.2. Xử lý sự cố
+### 2.2.2. Luồng thu tiền và quản lý công nợ
 
 ```mermaid
 flowchart TD
-    A["Cư dân gửi yêu cầu / nhân viên nhập hộ"] --> B["Tạo ticket NEW"]
-    B --> C["Phân loại mức ưu tiên"]
-    C --> D["Giao người phụ trách"]
-    D --> E["ACCEPTED"]
-    E --> F["IN_PROGRESS"]
-    F --> G["Cập nhật kết quả và minh chứng"]
-    G --> H["RESOLVED"]
-    H --> I["Cư dân xác nhận / đánh giá"]
-    I --> J["CLOSED"]
-    C --> K["Theo dõi SLA"]
-    E --> K
-    F --> K
-    K --> L{"Quá hạn?"}
-    L -- "Có" --> M["Cảnh báo và báo Trưởng ban"]
+    A["Hoá đơn phát hành (ISSUED)"] --> B["Chủ nhà / Nhân viên thu tiền từ khách"]
+    B --> C{"Hình thức thanh toán?"}
+    C -- "Chuyển khoản / Tiền mặt đủ" --> D["Ghi nhận thanh toán: Đủ"]
+    D --> E["Cập nhật trạng thái hoá đơn: PAID"]
+    C -- "Thanh toán một phần" --> F["Ghi nhận số tiền thực nhận"]
+    F --> G["Cập nhật trạng thái hoá đơn: PARTIAL"]
+    G --> H["Số còn lại ghi nhận vào Công nợ phòng"]
+    E & H --> I["Cập nhật báo cáo thực thu và phân khúc nhắc nợ"]
 ```
 
-### 2.2.3. Bảo trì thiết bị
+### 2.2.3. Luồng ký hợp đồng, thu cọc và hoàn trả khi thanh lý
 
 ```mermaid
 flowchart TD
-    A["Khai báo thiết bị và chu kỳ"] --> B["Xác định ngày bảo trì tiếp theo"]
-    B --> C["Đến thời điểm nhắc trước hạn"]
-    C --> D["Sinh công việc bảo trì"]
-    D --> E["Giao người phụ trách"]
-    E --> F["Thực hiện bảo trì"]
-    F --> G["Ghi nội dung, chi phí, biên bản"]
-    G --> H["Hoàn thành"]
-    H --> I["Tính ngày bảo trì kế tiếp"]
-    I --> B
+    A["Tạo hợp đồng mới (DRAFT)"] --> B["Nhập người thuê, số người ở, tiền thuê, tiền cọc"]
+    B --> C["Kích hoạt hợp đồng: ACTIVE (Phòng chuyển sang OCCUPIED)"]
+    C --> D["Thời gian thuê diễn ra..."]
+    D --> E{"Đến hạn hợp đồng?"}
+    E -- "Sắp hết hạn" --> F["Cảnh báo trạng thái EXPIRING"]
+    F --> G{"Gia hạn hay Trả phòng?"}
+    G -- "Gia hạn" --> H["Tạo phụ lục / Gia hạn thời gian"]
+    G -- "Thanh lý phòng" --> I["Kiểm tra công nợ và chỉ số chốt ngày trả phòng"]
+    I --> J["Đối trừ tiền cọc với tiền điện nước / công nợ còn lại"]
+    J --> K["Hoàn trả số cọc dư hoặc thu thêm phần chênh lệch"]
+    K --> L["Chuyển hợp đồng sang TERMINATED / EXPIRED, phòng chuyển VACANT"]
 ```
-
-## 2.3. Phạm vi triển khai
-
-### Trong phạm vi
-- Quản trị và làm sạch dữ liệu; nhập tòa nhà, căn hộ, cư dân, chỉ số công tơ.
-- Billing Engine, Debt Engine, SLA Engine và Maintenance Scheduler.
-- Dashboard điều hành, màn hình vận hành và cổng cư dân.
-- Phân quyền theo vai trò và theo tòa nhà.
-- Nhật ký thao tác quan trọng.
-
-### Ngoài phạm vi
-- Tích hợp IoT thời gian thực (công tơ thông minh, camera, kiểm soát ra vào).
-- Cổng thanh toán trực tuyến.
-- Kế toán đầy đủ (sổ cái, thuế).
-- Ứng dụng di động native.
-- Đặt tiện ích chung và marketplace nội khu.
-- AI phức tạp như nhận diện hình ảnh hoặc dự đoán hỏng hóc.
-
-## 2.4. Giả định và ràng buộc
-
-- Dữ liệu ban đầu được cung cấp từ Excel/CSV.
-- Ban quản lý chịu trách nhiệm xác nhận dữ liệu đầu vào.
-- Bảng giá, ngưỡng nhắc nợ, SLA và chu kỳ bảo trì do người có quyền cấu hình.
-- Người dùng có tài khoản và được gán vai trò/phạm vi tòa.
-- Cư dân sử dụng web responsive trong giai đoạn đầu.
 
 ---
 
 # 3. ĐẶC TẢ YÊU CẦU CHỨC NĂNG (FUNCTIONAL REQUIREMENTS)
 
-## 3.1. BMS-01 – Quản trị dữ liệu và nhập dữ liệu
+## 3.1. Phân hệ RPMS-01: Quản trị Danh mục & Dữ liệu
 
-### FR-01.1 – Quản lý dữ liệu danh mục
-- Hệ thống cho phép người có quyền tạo, xem và cập nhật thông tin tòa nhà.
-- Mỗi căn hộ thuộc một tòa nhà và có mã căn duy nhất theo phạm vi được thống nhất.
-- Danh mục cư dân, thiết bị và bảng giá được quản lý tập trung.
-- Dữ liệu danh mục đã được sử dụng trong giao dịch không nên bị xóa cứng; đề xuất chuyển sang trạng thái ngừng hoạt động để bảo toàn lịch sử.
+### FR-01.1: Quản lý Khu trọ / Nhà cho thuê (Properties)
+- **Mô tả:** Cho phép Chủ nhà quản lý danh mục các bất động sản/khu trọ của mình.
+- **Chi tiết:**
+  - Tạo mới, cập nhật, ngừng hoạt động khu trọ.
+  - Các thông tin: Mã khu trọ (duy nhất), Tên khu trọ, Địa chỉ, Số lượng phòng, Ghi chú.
+  - Không cho phép xoá cứng khu trọ đã có phòng phát sinh hợp đồng hoặc hoá đơn.
 
-### FR-01.2 – Import Excel/CSV
-- Người dùng có quyền được tải lên tệp Excel/CSV theo mẫu.
-- Hệ thống hỗ trợ import danh sách tòa, căn hộ, cư dân và chỉ số công tơ.
-- Hệ thống kiểm tra trường bắt buộc, định dạng, dữ liệu trùng và quan hệ tham chiếu trước khi ghi dữ liệu.
-- Kết quả phải hiển thị tổng dòng hợp lệ, tổng dòng lỗi và lỗi theo từng dòng/cột.
-- Không được âm thầm bỏ qua dòng lỗi.
-- **Đề xuất:** có màn hình xem trước và xác nhận trước khi import chính thức.
+### FR-01.2: Quản lý Phòng trọ (Rooms)
+- **Mô tả:** Quản lý chi tiết từng phòng trọ thuộc khu trọ.
+- **Chi tiết:**
+  - Thông tin phòng gồm: Mã phòng (VD: `KT01-P01`, duy nhất trong toàn hệ thống), Tên phòng, Tầng, Diện tích (m²), Tiền thuê cơ bản chuẩn/tháng.
+  - **Cấu hình hình thức quản lý số người:** `has_occupant_tracking` (Bật/Tắt).
+    - Nếu Bật: Phòng quản lý số người ở thực tế (phục vụ mô hình phòng trọ).
+    - Nếu Tắt: Không bắt buộc đếm người (phục vụ phòng cho công ty/văn phòng thuê).
+  - **Trạng thái phòng:** 
+    - `VACANT`: Phòng trống, sẵn sàng cho thuê.
+    - `OCCUPIED`: Đang có người thuê (đang gắn với 1 hợp đồng `ACTIVE`).
+    - `MAINTENANCE`: Đang sửa chữa, tạm ngưng khai thác.
 
-### FR-01.3 – Chuẩn hóa dữ liệu
-- Ngày tháng chuẩn hóa theo `YYYY-MM-DD`.
-- Tiền tệ được chuẩn hóa thành số nguyên VNĐ; ví dụ `1.250.000`, `1,250,000`, `1250k` phải được xử lý theo quy tắc import thống nhất.
-- Mã căn chuyển về chữ hoa, không dấu; ví dụ `a1-1205` thành `A1-1205`.
-- Số điện thoại theo một định dạng thống nhất.
-- Trạng thái dữ liệu sử dụng các giá trị chuẩn của hệ thống.
-- Dữ liệu không thể chuẩn hóa phải được báo lỗi, không tự suy đoán.
+### FR-01.3: Quản lý thông tin Người thuê (Tenants Master Data)
+- **Mô tả:** Lưu trữ thông tin cá nhân của người thuê để làm căn cứ pháp lý và liên lạc.
+- **Chi tiết:**
+  - Lưu: Họ tên, Số điện thoại (chuẩn hoá 10 chữ số), Số CCCD/CMND, Ngày sinh, Quê quán, Ảnh chụp CCCD (tuỳ chọn).
+  - Một người thuê có thể là người đứng tên chính trong hợp đồng hoặc là thành viên ở cùng.
+  - Hỗ trợ tra cứu nhanh lịch sử thuê phòng và lịch sử thanh toán của người thuê theo số điện thoại/CCCD.
 
-### FR-01.4 – Kiểm tra toàn vẹn
-- Không cho phép trùng `unit_code`, `invoice_no`, `ticket_no`.
-- Bản ghi vi phạm được gắn cờ chất lượng dữ liệu.
-- Kiểm tra quan hệ tham chiếu giữa tòa, căn hộ, cư dân và giao dịch.
+### FR-01.4: Import / Export dữ liệu Excel
+- **Mô tả:** Cho phép chủ nhà đưa dữ liệu từ Excel vào hệ thống để bắt đầu sử dụng nhanh.
+- **Chi tiết:**
+  - Hỗ trợ tải file mẫu Excel (.xlsx, .csv).
+  - Import danh sách phòng và danh sách người thuê.
+  - **Xử lý lỗi import:** Kiểm tra tính hợp lệ của từng dòng. Nếu có lỗi, hiển thị rõ số dòng, cột lỗi và nguyên nhân cụ thể (ví dụ: trùng mã phòng, định dạng ngày sai, tiền không phải số nguyên). Không tự động import một phần âm thầm.
+  - Export danh sách phòng, danh sách công nợ và hoá đơn ra file Excel.
 
-### FR-01.5 – Phân loại dữ liệu
-- Master Data: `buildings`, `units`, `residents`, `equipment`, `fee_rules`.
-- Transactional Data: `contracts`, `meter_readings`, `invoices`, `invoice_items`, `payments`, `tickets`, `maintenance_tasks`.
-
-## 3.2. BMS-02 – Quản lý tòa nhà, căn hộ, cư dân và hợp đồng
-
-### FR-02.1 – Quản lý tòa nhà và căn hộ
-- Admin được tạo, xem và cập nhật thông tin tòa nhà.
-- Admin quản lý danh sách căn hộ/phòng thuộc từng tòa.
-- Thông tin căn hộ gồm mã căn, tầng, diện tích, tòa nhà và trạng thái.
-- Trạng thái căn hộ: `VACANT`, `OCCUPIED`, `MAINTENANCE`.
-
-### FR-02.2 – Quản lý cư dân
-- Lưu thông tin cư dân: mã cư dân, họ tên, số điện thoại và thông tin liên hệ cần thiết.
-- Một căn hộ có thể liên kết cư dân chính và thành viên đi cùng.
-- Cư dân chỉ xem dữ liệu căn hộ được liên kết với tài khoản của mình.
-
-### FR-02.3 – Quản lý hợp đồng
-- Hợp đồng gắn với căn hộ và cư dân chính.
-- Vòng đời hợp đồng: `DRAFT → ACTIVE → EXPIRING → EXPIRED` hoặc `TERMINATED`.
-- Hệ thống cảnh báo khi hợp đồng sắp hết hạn theo ngưỡng cấu hình.
-- Mỗi căn hộ chỉ có một hợp đồng `ACTIVE` tại một thời điểm.
-- Hợp đồng có thể liên kết thành viên đi cùng và phương tiện đăng ký.
-
-### FR-02.4 – Quản lý phương tiện
-- Phương tiện được liên kết với hợp đồng/căn hộ.
-- Loại phương tiện là căn cứ tính phí gửi xe.
-- **Cần xác nhận:** danh mục loại phương tiện, số lượng tối đa và cách tính phí.
-
-## 3.3. BMS-03 – Quản lý phí, hóa đơn và thanh toán
-
-### FR-03.1 – Quản lý bảng giá
-- Người có quyền tạo và cập nhật bảng giá.
-- Bảng giá gồm phí quản lý theo m², điện, nước, gửi xe và phí khác.
-- Mỗi bảng giá có thời gian bắt đầu/kết thúc hiệu lực.
-- Hóa đơn sử dụng bảng giá có hiệu lực tại kỳ tính phí.
-
-### FR-03.2 – Ghi nhận chỉ số công tơ
-- Kế toán nhập chỉ số đầu kỳ và cuối kỳ theo căn hộ/kỳ.
-- Tiêu thụ = chỉ số cuối kỳ − chỉ số đầu kỳ.
-- Chỉ số cuối kỳ không được nhỏ hơn chỉ số đầu kỳ.
-- Khi thay công tơ phải có ghi chú và chỉ số chốt công tơ cũ.
-- Lưu người nhập và thời điểm ghi nhận.
-
-### FR-03.3 – Tính phí điện/nước
-- Tính mức tiêu thụ trong kỳ từ chỉ số hợp lệ.
-- Mỗi bậc tiêu thụ nhân với đơn giá của bậc đó.
-- Tổng tiền bằng tổng tiền các bậc.
-- Hiển thị chi tiết phép tính để kế toán/cư dân kiểm tra.
-
-### FR-03.4 – Tính các khoản phí khác
-- Phí quản lý = đơn giá/m² × diện tích căn hộ.
-- Phí gửi xe theo loại phương tiện đã đăng ký.
-- Phí khác và giảm trừ phải có khoản mục, số tiền và ghi chú/lý do khi cần.
-
-### FR-03.5 – Tạo hóa đơn
-Quy trình:
-1. Đọc chỉ số công tơ hợp lệ.
-2. Lấy bảng giá có hiệu lực và tính từng khoản.
-3. Áp dụng giảm trừ và phạt chậm (nếu có).
-4. Kiểm tra tiêu thụ bất thường so với các kỳ gần nhất.
-5. Tạo hóa đơn `DRAFT` chờ kế toán duyệt và phát hành.
-
-```text
-Tổng hóa đơn =
-    Phí quản lý + Điện + Nước + Gửi xe
-  + Phí khác - Giảm trừ + Phạt chậm
-```
-
-- Hóa đơn có mã duy nhất, căn hộ, kỳ tính phí, ngày tạo, hạn thanh toán, tổng tiền và chi tiết khoản mục.
-- Không phát hành hóa đơn khi dữ liệu tính phí chưa hợp lệ.
-- Hóa đơn đã phát hành không được xóa; chỉ điều chỉnh bằng nghiệp vụ có lý do và người duyệt.
-
-### FR-03.6 – Duyệt và phát hành
-- Kế toán tạo hóa đơn nháp.
-- Người có quyền duyệt xem chi tiết trước khi phát hành.
-- Khi phát hành, trạng thái chuyển thành `ISSUED`.
-- Lưu người thực hiện và thời điểm phát hành.
-- Mọi điều chỉnh hóa đơn đã phát hành phải lưu lý do và người duyệt.
-
-### FR-03.7 – Ghi nhận thanh toán
-- Kế toán ghi nhận thanh toán thủ công hoặc từ đối soát sao kê.
-- Thông tin gồm hóa đơn, số tiền, ngày thanh toán, phương thức và người ghi nhận.
-- Hỗ trợ thanh toán một phần hoặc toàn bộ.
-- Trạng thái `PARTIAL` khi đã thanh toán một phần; `PAID` khi đã thanh toán đủ.
-- Lưu lịch sử các lần thanh toán.
-- Không triển khai cổng thanh toán trực tuyến trong giai đoạn đầu.
-
-### FR-03.8 – Theo dõi công nợ và nhắc nợ
-- Công nợ = số phải thu − số đã thu.
-- Hóa đơn chưa thanh toán sau hạn được xác định là quá hạn theo quy tắc nghiệp vụ.
-- Phân khúc hành vi: đúng hạn, trễ thỉnh thoảng, trễ thường xuyên, nợ kéo dài và người thuê mới.
-- Ngưỡng phân khúc do Ban quản lý cấu hình.
-- Hỗ trợ nhắc trước hạn và nhắc nợ theo phân khúc.
-- Phạt chậm theo hợp đồng, chỉ tính sau hạn và không vượt mức pháp luật cho phép.
-
-### FR-03.9 – Cổng hóa đơn cư dân
-- Cư dân xem danh sách và chi tiết hóa đơn thuộc căn hộ của mình.
-- Chi tiết thể hiện khoản phí, chỉ số, đơn giá, số đã thanh toán và số còn phải trả.
-- Cư dân không được xem hóa đơn của căn hộ khác.
-
-## 3.4. BMS-04 – Dashboard và báo cáo
-
-### FR-04.1 – Bộ lọc
-- Dashboard lọc theo tòa nhà và kỳ/thời gian.
-- Chỉ hiển thị dữ liệu thuộc phạm vi được phân quyền.
-
-### FR-04.2 – KPI chính
-Dashboard hiển thị tối thiểu:
-1. Tỷ lệ thu phí kỳ hiện tại = số tiền đã thu / số tiền phải thu × 100%.
-2. Công nợ quá hạn: tổng tiền và số căn có công nợ quá hạn.
-3. Sự cố đang mở: tổng số sự cố chưa đóng và số sự cố vượt SLA.
-
-### FR-04.3 – Chỉ số bổ sung
-- Tỷ lệ lấp đầy = số căn `OCCUPIED` / tổng số căn khai thác × 100%.
-- Tỷ lệ thu phí theo tháng.
-- Sự cố theo loại và mức ưu tiên.
-- Số sự cố quá SLA.
-- Thiết bị sắp đến hạn bảo trì.
-- Thời gian xử lý sự cố trung bình.
-- Chi phí sửa chữa lũy kế theo thiết bị nếu có dữ liệu.
-
-### FR-04.4 – Nguyên tắc dashboard 90 giây
-- Ba KPI chính xuất hiện ngay trên màn hình đầu.
-- Không quá 4 biểu đồ trên dashboard điều hành chính.
-- Biểu đồ có tiêu đề, đơn vị, kỳ dữ liệu và phạm vi tòa rõ ràng.
-
-### FR-04.5 – Trình bày theo CCR
-Các biểu đồ quan trọng có phần giải thích:
-- **Context:** Bối cảnh và tình hình thực tế.
-- **Complication:** Vấn đề hoặc điểm nghẽn.
-- **Resolution:** Hành động/khuyến nghị cần xem xét.
-
-Phần Resolution trong phạm vi này là gợi ý dựa trên quy tắc và dữ liệu hiện có, không mặc định là nội dung do AI sinh ra.
-
-### FR-04.6 – Xuất báo cáo
-- Người có quyền xuất báo cáo Excel hoặc PDF.
-- Báo cáo thể hiện kỳ báo cáo, phạm vi tòa và thời điểm xuất.
-- Dữ liệu xuất tuân theo quyền truy cập.
-
-## 3.5. BMS-05 – Quản lý sự cố và SLA
-
-### FR-05.1 – Tạo yêu cầu
-- Cư dân gửi mô tả, nhóm sự cố và hình ảnh đính kèm nếu có.
-- Nhóm sự cố: điện, nước, thang máy, vệ sinh, an ninh, khác.
-- Lễ tân/bảo vệ có thể nhập hộ khi tiếp nhận qua điện thoại.
-- Hệ thống sinh mã ticket duy nhất; trạng thái ban đầu `NEW`.
-
-### FR-05.2 – Phân loại ưu tiên
-
-| Mức ưu tiên | Ví dụ |
-|---|---|
-| Khẩn cấp | Cháy, thang máy kẹt người, vỡ ống chính |
-| Cao | Mất điện/nước cả tầng, rò rỉ nước |
-| Trung bình | Hỏng đèn hành lang, điều hòa khu chung |
-| Thấp | Hỏi thông tin, góp ý |
-
-Ban quản lý cấu hình thời hạn tiếp nhận và xử lý cho từng mức ưu tiên.
-
-### FR-05.3 – Giao việc và trạng thái
-- Người có quyền phân công ticket cho nhân viên/bộ phận.
-- Vòng đời: `NEW → ACCEPTED → IN_PROGRESS → RESOLVED → CLOSED`.
-- Lưu người thực hiện và thời điểm mỗi lần chuyển trạng thái.
-- Kỹ thuật viên xem ticket được giao và cập nhật tiến độ.
-- Cư dân theo dõi ticket do mình gửi.
-
-### FR-05.4 – Theo dõi SLA
-- Tính thời hạn tiếp nhận và xử lý theo mức ưu tiên.
-- Ticket quá hạn phải được đánh dấu vi phạm SLA.
-- Cảnh báo hiển thị trên dashboard và gửi Trưởng ban theo cấu hình.
-- Lưu lịch sử cảnh báo.
-
-### FR-05.5 – Hoàn thành và đánh giá
-- Khi chuyển `RESOLVED`, nhân viên nhập kết quả xử lý.
-- Ticket Khẩn cấp và Cao phải có kết quả và hình ảnh/biên bản mới được chuyển `RESOLVED`.
-- Cư dân xác nhận và chấm điểm từ 1 đến 5.
-- Lưu đánh giá và phản hồi.
-
-## 3.6. BMS-06 – Quản lý thiết bị và bảo trì
-
-### FR-06.1 – Danh mục thiết bị
-- Quản lý thang máy, PCCC, máy bơm, điều hòa trung tâm, máy phát điện và thiết bị khác.
-- Mỗi thiết bị gắn với tòa, vị trí, nhà cung cấp và ngày đưa vào sử dụng.
-- Mỗi thiết bị có mã định danh duy nhất.
-
-### FR-06.2 – Lịch bảo trì
-- Người có quyền cấu hình chu kỳ theo ngày hoặc tháng.
-- Hệ thống xác định ngày bảo trì tiếp theo.
-- Tự sinh công việc trước hạn và nhắc người phụ trách.
-- Hiển thị công việc sắp đến hạn, đến hạn và quá hạn.
-
-### FR-06.3 – Ghi nhận bảo trì
-- Nhân viên ghi nội dung, người thực hiện, chi phí và biên bản/hình ảnh.
-- Lưu lịch sử theo thiết bị.
-- Sau khi hoàn thành, hệ thống tính ngày bảo trì kế tiếp.
-
-### FR-06.4 – Thiết bị hỏng lặp lại
-- Thống kê số lần sự cố/sửa chữa theo thiết bị trong khoảng thời gian cấu hình.
-- Thiết bị hỏng lặp lại bị gắn cờ “cân nhắc thay thế”.
-- Dashboard hiển thị tổng chi phí sửa chữa lũy kế.
-- Ngưỡng “nhiều lần” và “thời gian ngắn” cần Ban quản lý xác nhận.
-
-## 3.7. BMS-07 – Thông báo
-
-### FR-07.1 – Tạo và gửi thông báo
-- Tạo thông báo toàn tòa, theo tầng, theo nhóm hoặc cá nhân.
-- Loại thông báo: vận hành, hóa đơn, nhắc hạn, trạng thái sự cố và lịch bảo trì.
-- Người tạo chọn phạm vi người nhận.
-- Lưu người gửi, thời điểm, nội dung và danh sách người nhận.
-
-### FR-07.2 – Trạng thái đọc
-- Người nhận xem thông báo của mình.
-- Hệ thống lưu trạng thái đã đọc/chưa đọc.
-- Người dùng không xem được thông báo cá nhân ngoài phạm vi.
-- Kênh gửi (in-app, email, SMS...) chưa được BRD chốt; đề xuất giai đoạn đầu triển khai thông báo trong hệ thống.
-
-## 3.8. BMS-08 – Phân quyền và nhật ký
-
-### FR-08.1 – Quản lý tài khoản
-- Admin tạo, cập nhật, khóa/mở tài khoản theo quyền.
-- Tài khoản được gán vai trò.
-- Tài khoản cư dân liên kết với cư dân/căn hộ tương ứng.
-
-### FR-08.2 – Phân quyền RBAC
-
-| Vai trò | Quyền chính |
-|---|---|
-| Admin | Quản trị hệ thống và cấu hình trong phạm vi được giao |
-| Manager | Điều hành, quản lý và phê duyệt theo quyền |
-| Accountant | Chỉ số, bảng giá, hóa đơn, thanh toán, công nợ |
-| Technician | Ticket, thiết bị và bảo trì |
-| Resident | Hóa đơn, thông báo, gửi/theo dõi sự cố căn hộ |
-
-- Mọi API nghiệp vụ phải kiểm tra quyền ở phía máy chủ.
-- Ẩn chức năng trên giao diện không phải cơ chế bảo mật duy nhất.
-
-### FR-08.3 – Phân quyền theo tòa
-- Người dùng chỉ truy cập dữ liệu các tòa được phân công.
-- Cư dân chỉ truy cập dữ liệu căn hộ của mình.
-- Quy tắc này áp dụng cho danh sách, chi tiết, API và báo cáo xuất.
-
-### FR-08.4 – Audit Log
-Ghi nhật ký các thao tác quan trọng như sửa hóa đơn, đổi trạng thái hợp đồng, đổi bảng giá, đổi phân quyền. Mỗi bản ghi gồm người thực hiện, thời điểm, loại thao tác, đối tượng và giá trị trước/sau khi có. Người dùng thông thường không được sửa hoặc xóa nhật ký.
+### FR-01.5: Chuẩn hoá dữ liệu (Normalization)
+- **Mô tả:** Đảm bảo toàn vẹn dữ liệu nhập từ giao diện hoặc file.
+- **Quy tắc:**
+  - Định dạng ngày tháng: `YYYY-MM-DD`.
+  - Tiền tệ: Số nguyên dương (VNĐ). Chuyển đổi các định dạng nhập như `1.200.000`, `1,200,000`, `1200k` thành `1200000`.
+  - Mã phòng: Viết hoa không dấu, không chứa khoảng trắng (VD: `P101`, `KT02-P301`).
 
 ---
 
-# 4. YÊU CẦU GIAO DIỆN NGƯỜI DÙNG (USER INTERFACE)
+## 3.2. Phân hệ RPMS-02: Quản lý Hợp đồng & Tiền cọc
 
-## 4.1. Bố cục tổng thể
+### FR-02.1: Quản lý Vòng đời Hợp đồng thuê
+- **Mô tả:** Theo dõi toàn bộ vòng đời của hợp đồng thuê phòng.
+- **Các trạng thái:**
+  - `DRAFT`: Hợp đồng nháp đang lập.
+  - `ACTIVE`: Hợp đồng đang có hiệu lực. Phòng tự động chuyển sang `OCCUPIED`.
+  - `EXPIRING`: Hợp đồng sắp hết hạn (nằm trong khoảng cảnh báo trước N ngày do chủ nhà cấu hình, mặc định 15 ngày).
+  - `EXPIRED`: Hợp đồng đã đến hạn kết thúc mà chưa gia hạn.
+  - `TERMINATED`: Đã thanh lý, hoàn tất đối trừ công nợ và trả phòng. Phòng tự động chuyển sang `VACANT`.
+- **Ràng buộc:** Tại một thời điểm, mỗi phòng chỉ được phép có **tối đa một** hợp đồng ở trạng thái `ACTIVE` (Quy tắc RULE-02).
 
-```text
-+--------------------------------------------------------------------------------+
-| SMART BUILDING MANAGEMENT SYSTEM                         [Thông báo] [Tài khoản]|
-+----------------------+---------------------------------------------------------+
-| MENU                 | TỔNG QUAN ĐIỀU HÀNH                                     |
-| - Dashboard          | [Tỷ lệ thu phí] [Công nợ quá hạn] [Sự cố đang mở]       |
-| - Tòa nhà            |                                                         |
-| - Căn hộ             | [Bộ lọc: Tòa nhà] [Kỳ báo cáo]                           |
-| - Cư dân             | [Biểu đồ thu phí] [Công nợ theo tòa]                     |
-| - Hợp đồng           | [Sự cố theo trạng thái] [Thiết bị sắp bảo trì]           |
-| - Chỉ số điện nước   | [Danh sách cảnh báo / việc cần xử lý]                  |
-| - Bảng giá           |                                                         |
-| - Hóa đơn            |                                                         |
-| - Thanh toán         |                                                         |
-| - Sự cố              |                                                         |
-| - Thiết bị & bảo trì |                                                         |
-| - Thông báo          |                                                         |
-| - Người dùng         |                                                         |
-+----------------------+---------------------------------------------------------+
-```
+### FR-02.2: Quản lý số người ở trong hợp đồng
+- **Mô tả:** Gắn danh sách người ở thực tế vào hợp đồng thuê.
+- **Chi tiết:**
+  - Gắn người thuê chính (đại diện ký hợp đồng).
+  - Khai báo danh sách người ở cùng (Họ tên, SĐT, CCCD) hoặc nhập trường **Số người ở thực tế** (occupant count).
+  - Đối với phòng có bật `has_occupant_tracking`, trường số người ở là bắt buộc (tối thiểu là 1) để làm căn cứ tính tiền nước theo đầu người.
 
-## 4.2. Danh sách màn hình
-
-| Màn hình | Thành phần chính | Thao tác |
-|---|---|---|
-| Đăng nhập | Tên đăng nhập/email, mật khẩu | Đăng nhập/đăng xuất |
-| Dashboard | KPI, biểu đồ, bộ lọc, cảnh báo | Xem chi tiết, lọc, xuất báo cáo |
-| Tòa nhà | Danh sách và thông tin tòa | Thêm, sửa, xem |
-| Căn hộ | Mã căn, tầng, diện tích, trạng thái | Thêm, sửa, tìm kiếm |
-| Cư dân | Thông tin và căn hộ liên kết | Thêm, sửa, xem |
-| Hợp đồng | Thời hạn, cư dân, trạng thái | Tạo, cập nhật, chấm dứt |
-| Chỉ số công tơ | Kỳ, chỉ số đầu/cuối, tiêu thụ | Nhập, import, kiểm tra |
-| Bảng giá | Loại phí, đơn giá, hiệu lực | Tạo, cập nhật |
-| Hóa đơn | Mã, kỳ, căn hộ, số tiền, trạng thái | Tạo nháp, duyệt, phát hành |
-| Thanh toán/công nợ | Số đã thu, còn nợ, hạn thanh toán | Ghi nhận, tra cứu, nhắc nợ |
-| Sự cố | Ticket, ưu tiên, SLA, người phụ trách | Tạo, phân công, cập nhật |
-| Thiết bị | Mã, vị trí, trạng thái | Thêm, cập nhật, xem lịch sử |
-| Bảo trì | Lịch, công việc, người phụ trách | Tạo lịch, giao việc, hoàn thành |
-| Thông báo | Nội dung, người nhận, trạng thái đọc | Tạo, gửi, xem lịch sử |
-| Người dùng | Tài khoản, vai trò, phạm vi tòa | Tạo, khóa, gán quyền |
-
-## 4.3. Cổng cư dân
-- Xem tổng quan căn hộ và thông báo.
-- Xem danh sách, chi tiết hóa đơn và lịch sử thanh toán.
-- Tạo yêu cầu sự cố và đính kèm hình ảnh.
-- Theo dõi lịch sử/trạng thái xử lý.
-- Xác nhận kết quả và đánh giá sự cố.
-
-## 4.4. Nguyên tắc giao diện
-- Giao diện tiếng Việt, thuật ngữ nhất quán.
-- Responsive trên máy tính, máy tính bảng và điện thoại.
-- Trạng thái có nhãn chữ, không chỉ phân biệt bằng màu.
-- Biểu mẫu chỉ rõ trường bắt buộc và lỗi nhập liệu.
-- Thao tác ảnh hưởng tài chính/dữ liệu quan trọng cần xác nhận.
-- Dashboard chính tối đa 4 biểu đồ.
+### FR-02.3: Quản lý Tiền đặt cọc (Deposit Management)
+- **Mô tả:** Quản lý tiền cọc khi khách vào ở và xử lý cọc khi trả phòng.
+- **Chi tiết:**
+  - Ghi nhận số tiền đặt cọc khi tạo hợp đồng và ngày thu cọc.
+  - Trạng thái cọc: `HELD` (đang giữ cọc), `DEDUCTED` (đã đối trừ vào công nợ), `REFUNDED` (đã hoàn trả khách).
+  - **Nghiệp vụ thanh lý hợp đồng:** Hệ thống cung cấp bảng tính đối soát thanh lý:
+    $$\text{Tiền trả lại khách} = \text{Tiền cọc} - \text{Nợ hoá đơn cũ} - \text{Tiền điện nước kỳ cuối} - \text{Phí hư hỏng (nếu có)}$$
+  - Bắt buộc ghi nhận lý do nếu có trừ cọc do hư hỏng thiết bị hoặc vi phạm hợp đồng.
 
 ---
 
-# 5. MÔ HÌNH DỮ LIỆU (DATA REQUIREMENTS)
+## 3.3. Phân hệ RPMS-03: Ghi nhận Chỉ số & Động cơ tính phí (Billing Engine)
 
-## 5.1. Nguyên tắc
-- Sử dụng khóa chính, khóa ngoại và ràng buộc duy nhất.
-- Tiền lưu bằng số nguyên VNĐ để tránh sai số số thực.
-- Giao dịch lưu thời điểm phát sinh để đối soát.
-- Không xóa cứng giao dịch đã phát sinh nghĩa vụ tài chính/lịch sử.
-- Tên bảng/cột dưới đây là mô hình logic đề xuất, chưa phải thiết kế vật lý cuối cùng.
+### FR-03.1: Cấu hình Bảng giá Dịch vụ (Fee Rules)
+- **Mô tả:** Chủ nhà cấu hình giá các dịch vụ áp dụng cho từng khu trọ hoặc áp dụng riêng cho từng phòng.
+- **Chi tiết:**
+  - **Đơn giá điện:** Đơn giá cố định trên 1 số điện (kWh), ví dụ: 3.500đ, 4.000đ/số.
+  - **Đơn giá nước:** Cấu hình theo hình thức tính áp dụng cho phòng:
+    + Đơn giá theo khối nước (m³).
+    + Đơn giá theo đầu người / tháng (VD: 80.000đ, 100.000đ/người/tháng).
+    + Mức giá khoán cố định theo tháng (VD: 300.000đ, 500.000đ/tháng).
+  - **Dịch vụ khác:** Phí rác, Phí Internet/Wifi, Phí gửi xe máy (theo đầu xe), Phí vệ sinh chung... Có thể cấu hình tính theo phòng, theo đầu người hoặc theo đầu xe.
+  - Bảng giá có ngày bắt đầu hiệu lực. Hoá đơn kỳ nào áp dụng bảng giá có hiệu lực tại kỳ đó.
 
-## 5.2. Các thực thể chính
+### FR-03.2: Ghi nhận Chỉ số Điện nước theo ngày đo
+- **Mô tả:** Giao diện nhập chỉ số nhanh, tối ưu trên điện thoại cho người đi ghi chỉ số thực tế.
+- **Chi tiết:**
+  - Mỗi bản ghi chỉ số gồm: Phòng, Loại công tơ (Điện / Nước), Ngày đo kỳ trước, Chỉ số kỳ trước, Ngày đo kỳ này, Chỉ số kỳ này, Người ghi nhận.
+  - **Tự động điền:** Khi mở form ghi chỉ số, hệ thống tự động tải chỉ số và ngày đo của kỳ liền trước làm "Chỉ số kỳ trước".
+  - **Kiểm tra tính hợp lệ:** 
+    - Chỉ số kỳ này phải $\ge$ Chỉ số kỳ trước (RULE-03).
+    - Trường hợp thay công tơ: Cho phép đánh dấu cờ "Đổi công tơ", yêu cầu nhập chỉ số chốt của công tơ cũ và chỉ số bắt đầu của công tơ mới kèm ghi chú.
+  - **Cảnh báo bất thường:** Nếu mức tiêu thụ tăng vọt bất thường (> 150% so với mức trung bình 2 kỳ gần nhất), hiển thị cảnh báo màu vàng để người ghi kiểm tra lại công tơ trước khi lưu.
 
-| Bảng | Mục đích | Trường tiêu biểu |
-|---|---|---|
-| `buildings` | Tòa nhà | `id`, `building_code`, `name`, `address`, `status` |
-| `units` | Căn hộ/phòng | `id`, `building_id`, `unit_code`, `floor`, `area`, `status` |
-| `residents` | Cư dân | `id`, `full_name`, `phone`, `email`, `status` |
-| `unit_residents` | Liên kết cư dân-căn hộ | `unit_id`, `resident_id`, `resident_type`, `start_date`, `end_date` |
-| `contracts` | Hợp đồng | `id`, `unit_id`, `primary_resident_id`, `start_date`, `end_date`, `status` |
-| `vehicles` | Phương tiện | `id`, `contract_id`, `vehicle_type`, `license_plate`, `status` |
-| `fee_rules` | Bảng giá | `id`, `building_id`, `fee_type`, `unit_price`, `effective_from`, `effective_to` |
-| `fee_tiers` | Bậc giá | `id`, `fee_rule_id`, `from_value`, `to_value`, `unit_price` |
-| `meter_readings` | Chỉ số công tơ | `id`, `unit_id`, `meter_type`, `period`, `previous_value`, `current_value`, `consumption` |
-| `invoices` | Hóa đơn | `id`, `invoice_no`, `unit_id`, `billing_period`, `due_date`, `total_amount`, `status` |
-| `invoice_items` | Chi tiết hóa đơn | `id`, `invoice_id`, `fee_type`, `description`, `quantity`, `unit_price`, `amount` |
-| `payments` | Thanh toán | `id`, `invoice_id`, `amount`, `payment_date`, `method`, `recorded_by` |
-| `tickets` | Sự cố | `id`, `ticket_no`, `unit_id`, `created_by`, `category`, `priority`, `status` |
-| `ticket_history` | Lịch sử sự cố | `id`, `ticket_id`, `old_status`, `new_status`, `changed_by`, `changed_at` |
-| `ticket_attachments` | Tệp đính kèm | `id`, `ticket_id`, `file_path`, `file_type`, `uploaded_by` |
-| `ticket_feedback` | Đánh giá | `id`, `ticket_id`, `resident_id`, `rating`, `comment` |
-| `equipment` | Thiết bị | `id`, `building_id`, `equipment_code`, `name`, `location`, `vendor`, `installed_at` |
-| `maintenance_plans` | Kế hoạch bảo trì | `id`, `equipment_id`, `interval_value`, `interval_unit`, `next_due_date` |
-| `maintenance_tasks` | Công việc bảo trì | `id`, `equipment_id`, `plan_id`, `assigned_to`, `due_date`, `status` |
-| `maintenance_records` | Lịch sử bảo trì | `id`, `task_id`, `equipment_id`, `performed_by`, `description`, `cost` |
-| `notifications` | Thông báo | `id`, `title`, `content`, `scope_type`, `building_id`, `created_by` |
-| `notification_recipients` | Người nhận | `notification_id`, `user_id`, `read_at` |
-| `users` | Tài khoản | `id`, `username`, `password_hash`, `status` |
-| `roles` | Vai trò | `id`, `role_code`, `role_name` |
-| `user_roles` | Gán vai trò | `user_id`, `role_id` |
-| `user_buildings` | Phạm vi tòa | `user_id`, `building_id` |
-| `audit_logs` | Nhật ký | `id`, `user_id`, `action`, `entity_type`, `entity_id`, `before_value`, `after_value`, `created_at` |
-| `import_jobs` | Lịch sử import | `id`, `file_name`, `status`, `total_rows`, `success_rows`, `error_rows` |
-| `import_errors` | Lỗi import | `id`, `import_job_id`, `row_number`, `column_name`, `error_message` |
+### FR-03.3: Động cơ tính tiền điện theo số thực tế
+- **Mô tả:** Tự động tính tiền điện theo số tiêu thụ giữa 2 ngày đo.
+- **Công thức:**
+  $$\text{Số điện tiêu thụ} = \text{Chỉ số điện kỳ này} - \text{Chỉ số điện kỳ trước}$$
+  $$\text{Tiền điện} = \text{Số điện tiêu thụ} \times \text{Đơn giá 1 số điện}$$
+- **Ví dụ kiểm thử:** Chỉ số cũ ngày 05/10 là 1.000; Chỉ số mới ngày 05/11 là 1.030 $\rightarrow$ Tiêu thụ = 30 số. Với đơn giá 4.000 VNĐ/số $\rightarrow$ Tiền điện = $30 \times 4.000 = 120.000$ VNĐ.
 
-## 5.3. Quan hệ dữ liệu chính
+### FR-03.4: Động cơ tính tiền nước linh hoạt (3 hình thức)
+- **Mô tả:** Tính tiền nước căn cứ theo cấu hình của từng phòng/hợp đồng:
+  - **Hình thức 1 (Theo chỉ số đồng hồ nước):**
+    $$\text{Số khối nước tiêu thụ} = \text{Chỉ số nước mới} - \text{Chỉ số nước cũ}$$
+    $$\text{Tiền nước} = \text{Số khối nước tiêu thụ} \times \text{Đơn giá 1 khối (m³)}$$
+  - **Hình thức 2 (Theo số lượng người ở - mô hình phòng trọ):**
+    $$\text{Tiền nước} = \text{Số người ở trong phòng} \times \text{Đơn giá nước / người / tháng}$$
+    *(Ví dụ: Phòng có 3 người, đơn giá 100.000 VNĐ/người $\rightarrow$ Tiền nước = $3 \times 100.000 = 300.000$ VNĐ/tháng).*
+  - **Hình thức 3 (Khoán cố định theo tháng - mô hình công ty/văn phòng thuê):**
+    $$\text{Tiền nước} = \text{Đơn giá khoán cố định theo tháng thoả thuận trong hợp đồng}$$
+    *(Ví dụ: Công ty thuê văn phòng khoán 500.000 VNĐ/tháng không phụ thuộc số người hay số đo).*
+
+---
+
+## 3.4. Phân hệ RPMS-04: Hoá đơn, Thanh toán & Công nợ (Debt Engine)
+
+### FR-04.1: Quy trình sinh Hoá đơn dịch vụ theo kỳ (Billing Pipeline)
+- **Mô tả:** Tự động tổng hợp các khoản phí để tạo hoá đơn hàng tháng cho từng phòng.
+- **Các bước thực hiện:**
+  1. Kiểm tra phòng đã có đủ chỉ số điện nước hợp lệ của kỳ.
+  2. Lấy tiền thuê phòng cố định theo hợp đồng (tính tròn tháng hoặc tính theo số ngày thực tế nếu vào/ra giữa tháng).
+  3. Tính tiền điện theo FR-03.3.
+  4. Tính tiền nước theo hình thức tương ứng của phòng (FR-03.4).
+  5. Tính các khoản phí dịch vụ khác (wifi, rác, xe máy).
+  6. Cộng dồn nợ cũ chưa thanh toán từ kỳ trước (nếu có).
+  7. Trừ các khoản giảm trừ khuyến mãi (nếu có).
+  8. Sinh hoá đơn ở trạng thái **`DRAFT`** (Nháp).
+- **Tổng tiền hoá đơn:**
+  $$\text{Tổng tiền} = \text{Tiền thuê} + \text{Tiền điện} + \text{Tiền nước} + \text{Phí dịch vụ} + \text{Nợ cũ} - \text{Giảm trừ} + \text{Phạt chậm (nếu có)}$$
+
+### FR-04.2: Phê duyệt và Phát hành Hoá đơn
+- **Mô tả:** Chủ nhà xem xét chi tiết hoá đơn nháp trước khi gửi thông báo cho khách.
+- **Chi tiết:**
+  - Chủ nhà kiểm tra danh sách hoá đơn `DRAFT`, xem chi tiết từng dòng mục (itemized bill).
+  - Phê duyệt đơn lẻ hoặc phê duyệt hàng loạt theo khu trọ $\rightarrow$ Hoá đơn chuyển sang trạng thái **`ISSUED`** (Đã phát hành).
+  - **Quy tắc bất biến (RULE-04):** Hoá đơn đã ở trạng thái `ISSUED` không được phép xoá. Mọi sự thay đổi phải thực hiện qua chức năng "Điều chỉnh hoá đơn" (ghi rõ lý do điều chỉnh và người duyệt).
+
+### FR-04.3: Ghi nhận Thanh toán (Payments)
+- **Mô tả:** Ghi nhận tiền khách trả khi thu trực tiếp hoặc qua chuyển khoản ngân hàng.
+- **Chi tiết:**
+  - Nhân viên hoặc Chủ nhà tìm kiếm theo phòng $\rightarrow$ Chọn hoá đơn cần thu.
+  - Nhập: Số tiền thực thu, Ngày thanh toán, Hình thức (Tiền mặt / Chuyển khoản), Ghi chú.
+  - **Xử lý trạng thái hoá đơn:**
+    - Nếu Số tiền thu $\ge$ Tổng tiền phải trả: Hoá đơn chuyển sang **`PAID`** (Đã thanh toán đủ).
+    - Nếu $0 < \text{Số tiền thu} < \text{Tổng tiền phải trả}$: Hoá đơn chuyển sang **`PARTIAL`** (Thanh toán một phần). Phần tiền còn thiếu được lưu trữ vào công nợ tồn đọng của phòng.
+  - Cho phép xuất phiếu thu hoặc chia sẻ ảnh hoá đơn / tin nhắn tổng hợp qua Zalo, tin nhắn SMS cho khách.
+
+### FR-04.4: Theo dõi Công nợ & Phân khúc thanh toán (Debt Engine)
+- **Mô tả:** Quản lý danh sách các phòng còn nợ và phân loại hành vi nợ.
+- **Chi tiết:**
+  - Thống kê tổng công nợ theo từng phòng và theo từng khu trọ.
+  - Phân loại phòng theo 5 phân khúc:
+    1. *Đúng hạn:* Luôn trả đủ trước ngày hạn thanh toán.
+    2. *Trễ thỉnh thoảng:* Trễ dưới 5 ngày, thanh toán sau khi nhắc.
+    3. *Trễ thường xuyên:* Trễ trên 5 ngày liên tục qua nhiều tháng.
+    4. *Nợ kéo dài:* Nợ gối đầu qua hơn 1 kỳ hoá đơn $\rightarrow$ Cảnh báo đỏ nổi bật trên màn hình để chủ nhà có biện pháp xử lý.
+    5. *Người thuê mới:* Chưa có đủ lịch sử thanh toán 2 kỳ.
+
+---
+
+## 3.5. Phân hệ RPMS-05: Thiết bị & Lịch sử Sửa chữa
+
+### FR-05.1: Danh mục Thiết bị (Equipment)
+- **Mô tả:** Theo dõi tài sản, trang thiết bị trong từng phòng và khu vực dùng chung.
+- **Chi tiết:**
+  - Khai báo thiết bị: Máy bơm nước, Bình nóng lạnh, Điều hoà, Cửa cuốn, Bồn nước, Hệ thống đèn/quạt, Tủ lạnh...
+  - Gắn vị trí: Thuộc khu vực chung của khu trọ (Khu giặt, Cổng chính...) hoặc nằm trong phòng cụ thể (Phòng 102).
+  - Lưu thông tin: Mã thiết bị, Tên thiết bị, Hãng/Nhà cung cấp, Ngày lắp đặt, Giá trị mua ban đầu.
+
+### FR-05.2: Ghi nhận Nhật ký Sửa chữa (Repair Logs)
+- **Mô tả:** Lưu lại lịch sử mỗi lần thiết bị gặp sự cố và được sửa chữa.
+- **Chi tiết:**
+  - Nhập bản ghi sửa chữa: Chọn thiết bị, Ngày sửa, Người/Thợ sửa chữa, Nội dung hỏng hóc & giải pháp xử lý, Chi phí sửa chữa (VNĐ), Người thanh toán (Chủ nhà chịu hoặc Trừ vào người thuê nếu do người thuê làm hỏng).
+  - Tự động cộng dồn **Chi phí sửa chữa luỹ kế** cho từng thiết bị.
+
+### FR-05.3: Cảnh báo Thiết bị hỏng lặp lại
+- **Mô tả:** Hỗ trợ chủ nhà ra quyết định thay mới thiết bị.
+- **Chi tiết:**
+  - Nếu một thiết bị phát sinh $\ge 3$ lần sửa chữa trong vòng 6 tháng: Hệ thống gắn nhãn cảnh báo **"Cân nhắc thay mới"**.
+  - Hiển thị so sánh: Tổng chi phí đã sửa chữa so với giá trị mua mới của thiết bị.
+
+---
+
+## 3.6. Phân hệ RPMS-06: Phân quyền & Nhật ký (RBAC & Audit)
+
+### FR-06.1: Quản lý Tài khoản & Phân quyền 2 vai trò
+- **Mô tả:** Phân quyền kiểm soát truy cập chặt chẽ giữa Chủ nhà và Nhân viên.
+- **Ma trận phân quyền:**
+
+| Chức năng nghiệp vụ | Chủ nhà (Owner) | Nhân viên thu phí (Staff) |
+|---|:---:|:---:|
+| Tạo / Sửa khu trọ & Bảng giá dịch vụ | Toàn quyền | Không có quyền |
+| Quản lý phòng & Hợp đồng thuê | Toàn quyền | Chỉ xem |
+| Nhập chỉ số điện nước | Toàn quyền | Được làm (chỉ khu trọ được giao) |
+| Lập & Duyệt hoá đơn | Toàn quyền | Không có quyền |
+| Ghi nhận thanh toán & Thu tiền | Toàn quyền | Được làm (chỉ khu trọ được giao) |
+| Xem báo cáo doanh thu & công nợ | Xem tất cả | Chỉ xem khu trọ được giao |
+| Quản lý thiết bị & Ghi nhận sửa chữa | Toàn quyền | Được nhập sửa chữa |
+| Quản lý tài khoản nhân viên | Toàn quyền | Không có quyền |
+
+### FR-06.2: Giới hạn phạm vi dữ liệu theo Khu trọ
+- **Mô tả:** Nhân viên chỉ có thể thấy và thao tác với các phòng thuộc khu trọ mà chủ nhà đã phân công.
+- **Quy tắc máy chủ:** Mọi API gọi từ tài khoản Staff đều phải được kiểm tra ràng buộc `user_properties` ở tầng Backend, không dựa vào việc ẩn nút trên giao diện.
+
+### FR-06.3: Nhật ký thao tác (Audit Trail)
+- **Mô tả:** Lưu vết các thao tác nhạy cảm liên quan đến tiền bạc và hợp đồng.
+- **Chi tiết:**
+  - Ghi log tự động khi: Điều chỉnh hoá đơn đã phát hành, Thay đổi trạng thái hợp đồng (kích hoạt/thanh lý), Thay đổi bảng giá, Điều chỉnh công nợ.
+  - Thông tin lưu trữ: ID người thao tác, Thời điểm phát sinh (timestamp), Hành động (CREATE, UPDATE, DELETE), Giá trị trước (Before Value), Giá trị sau (After Value).
+  - Nhật ký không thể bị chỉnh sửa hoặc xoá bởi bất kỳ người dùng nào qua giao diện.
+
+---
+
+# 4. YÊU CẦU GIAO DIỆN NGƯỜI DÙNG (USER INTERFACE REQUIREMENTS)
+
+> **Ghi chú về thiết kế:** Hệ thống không áp đặt bố cục giao diện cố định hoặc chi tiết từng nút bấm trong tài liệu này. Thay vào đó, tài liệu xác định các **nguyên tắc thiết kế** và **danh mục màn hình nghiệp vụ cần thiết kế**. Công cụ thiết kế UI chuyên dụng (như **Google Stitch**) sẽ tự do sáng tạo, bố trí giao diện và xây dựng các luồng tương tác tối ưu nhất dựa trên toàn bộ yêu cầu nghiệp vụ (Mục 3) và mô hình dữ liệu (Mục 5).
+
+---
+
+## 4.1. Nguyên tắc thiết kế chung (Design Principles)
+
+1. **Định hướng Mobile-First:**
+   - Hệ thống chủ yếu được Chủ nhà và Nhân viên sử dụng trên điện thoại di động khi trực tiếp đi đến từng phòng trọ để ghi chỉ số điện nước hoặc thu tiền.
+   - Giao diện phải tối ưu cho thao tác chạm (touch-friendly), khoảng cách giữa các phần tử đủ lớn để không bấm nhầm, ô nhập số tự động bật bàn phím số (numeric keypad).
+
+2. **Trực quan hoá trạng thái phòng (Visual Room Status):**
+   - Danh sách phòng cần được thể hiện bằng màu sắc hoặc nhãn rõ ràng để người dùng nhận biết ngay lập tức:
+     - Phòng đang thuê & đã thanh toán đầy đủ.
+     - Phòng đang thuê & chưa chốt điện nước hoặc đang nợ tiền.
+     - Phòng trống sẵn sàng cho thuê.
+     - Phòng đang sửa chữa/bảo trì.
+
+3. **Tối ưu tốc độ thao tác (Speed & Usability):**
+   - Quy trình ghi chỉ số điện nước phải liền mạch, hỗ trợ chuyển phòng kế tiếp nhanh chóng mà không cần quay lại màn hình danh sách nhiều lần.
+   - Thao tác ghi nhận thanh toán nhanh gọn, hỗ trợ hiển thị mã QR thanh toán ngân hàng (VietQR).
+
+4. **Ngôn ngữ & Thuật ngữ:**
+   - 100% tiếng Việt, sử dụng các thuật ngữ quen thuộc với chủ trọ (số điện, số nước, tiền cọc, nợ cũ, phòng trống...).
+
+---
+
+## 4.2. Danh mục màn hình nghiệp vụ & Tệp giao diện HTML do Stitch tự động sinh
+
+Các màn hình dưới đây đã được **Google Stitch AI tự động thiết kế và kết xuất mã HTML trực tiếp** từ tài liệu SRS này:
+
+| Mã màn hình | Tên màn hình nghiệp vụ | Tệp giao diện HTML từ Stitch | Ảnh chụp thiết kế (Screenshot) | Mã Screen ID trên Stitch |
+|---|---|---|---|---|
+| **SCR-02** | **Quản lý Danh sách Phòng trọ** | [quan_ly_phong_tro.html](file:///d:/My_Project/building-management-system/docs/stitch_screens/quan_ly_phong_tro.html) | [quan_ly_phong_tro.png](file:///d:/My_Project/building-management-system/docs/stitch_screens/quan_ly_phong_tro.png) | `e52ed83f87dc4dc1a6ad1058b7833a74` |
+| **SCR-03** | **Ghi nhận Chỉ số Điện Nước** | [ghi_chi_so_dien_nuoc.html](file:///d:/My_Project/building-management-system/docs/stitch_screens/ghi_chi_so_dien_nuoc.html) | [ghi_chi_so_dien_nuoc.png](file:///d:/My_Project/building-management-system/docs/stitch_screens/ghi_chi_so_dien_nuoc.png) | `73aaacffb3a444baa18bdb549a23919f` |
+| **SCR-04** | **Chi tiết Hoá đơn & Thu tiền** | [hoa_don_thu_tien.html](file:///d:/My_Project/building-management-system/docs/stitch_screens/hoa_don_thu_tien.html) | [hoa_don_thu_tien.png](file:///d:/My_Project/building-management-system/docs/stitch_screens/hoa_don_thu_tien.png) | `71d11d2cfe84497aae609b613ffc4123` |
+| **SCR-01** | **Đăng nhập & Chọn Khu trọ** | *(Sẵn sàng tự sinh)* | - | - |
+| **SCR-05** | **Hợp đồng & Tiền đặt cọc** | *(Sẵn sàng tự sinh)* | - | - |
+| **SCR-06** | **Thiết bị & Nhật ký Sửa chữa** | *(Sẵn sàng tự sinh)* | - | - |
+| **SCR-07** | **Báo cáo Doanh thu & Công nợ** | *(Sẵn sàng tự sinh)* | - | - |
+
+> 💡 **Cách xem:** Bạn có thể mở trực tiếp các tệp `.html` trong thư mục `docs/stitch_screens/` bằng bất kỳ trình duyệt nào để xem và thao tác thử với giao diện nguyên bản do Google Stitch thiết kế!
+
+---
+
+## 4.3. Tiêu chí nghiệm thu thiết kế UI (Design Acceptance Criteria)
+
+Một bản thiết kế giao diện (được tạo bởi Stitch hoặc UI Designer) được coi là hợp lệ khi đáp ứng đầy đủ các tiêu chí sau:
+1. **Tính đầy đủ:** Có đủ các trường dữ liệu và nghiệp vụ đã quy định trong Mục 3 (FR-01.1 đến FR-06.3) và Mục 5 (Mô hình dữ liệu).
+2. **Hỗ trợ 2 vai trò:** Giao diện cho phép phân biệt phạm vi thao tác của Chủ nhà (Owner - toàn quyền) và Nhân viên (Staff - chỉ ghi số, thu tiền theo khu trọ được giao).
+3. **Phù hợp thực tế:** Thể hiện đúng quy tắc điện tính theo số thực tế nhân đơn giá, nước linh hoạt 3 dạng (đồng hồ / đầu người / khoán), phòng có hoặc không quản lý số người.
+
+---
+
+# 5. MÔ HÌNH DỮ LIỆU LOGIC (DATA MODEL)
+
+## 5.1. Bảng dữ liệu chính
 
 ```mermaid
 erDiagram
-    BUILDINGS ||--o{ UNITS : contains
-    BUILDINGS ||--o{ EQUIPMENT : owns
-    BUILDINGS ||--o{ FEE_RULES : configures
-    UNITS ||--o{ UNIT_RESIDENTS : has
-    RESIDENTS ||--o{ UNIT_RESIDENTS : occupies
-    UNITS ||--o{ CONTRACTS : has
-    CONTRACTS ||--o{ VEHICLES : registers
-    UNITS ||--o{ METER_READINGS : records
-    UNITS ||--o{ INVOICES : receives
-    INVOICES ||--|{ INVOICE_ITEMS : contains
-    INVOICES ||--o{ PAYMENTS : paid_by
-    UNITS ||--o{ TICKETS : reports
-    TICKETS ||--o{ TICKET_HISTORY : tracks
-    TICKETS ||--o{ TICKET_ATTACHMENTS : attaches
-    EQUIPMENT ||--o{ MAINTENANCE_PLANS : follows
-    EQUIPMENT ||--o{ MAINTENANCE_TASKS : has
-    NOTIFICATIONS ||--o{ NOTIFICATION_RECIPIENTS : targets
-    USERS ||--o{ AUDIT_LOGS : performs
+    PROPERTIES ||--o{ ROOMS : contains
+    PROPERTIES ||--o{ FEE_CONFIGS : defines
+    PROPERTIES ||--o{ EQUIPMENT : owns
+    
+    ROOMS ||--o{ CONTRACTS : rents
+    ROOMS ||--o{ METER_READINGS : records
+    ROOMS ||--o{ INVOICES : generates
+    
+    TENANTS ||--o{ CONTRACTS : signs
+    CONTRACTS ||--o{ CONTRACT_TENANTS : includes
+    
+    INVOICES ||--|{ INVOICE_ITEMS : details
+    INVOICES ||--o{ PAYMENTS : receives
+    
+    EQUIPMENT ||--o{ REPAIR_LOGS : tracks
+    
+    USERS ||--o{ USER_PROPERTIES : assigned
+    USERS ||--o{ AUDIT_LOGS : triggers
 ```
 
-## 5.4. Trạng thái chuẩn
+### 5.2. Đặc tả các trường dữ liệu tiêu biểu
 
-- Căn hộ: `VACANT`, `OCCUPIED`, `MAINTENANCE`.
-- Hóa đơn: `DRAFT`, `ISSUED`, `PARTIAL`, `PAID`, `OVERDUE`, `CANCELLED`.
-- Hợp đồng: `DRAFT`, `ACTIVE`, `EXPIRING`, `EXPIRED`, `TERMINATED`.
-- Sự cố: `NEW`, `ACCEPTED`, `IN_PROGRESS`, `RESOLVED`, `CLOSED`.
+#### 1. Bảng `properties` (Khu trọ / Nhà cho thuê)
+- `id`: BIGSERIAL (Primary Key)
+- `property_code`: VARCHAR(50) (Unique - Mã khu trọ, VD: `KT-01`)
+- `name`: VARCHAR(255) (Tên khu trọ)
+- `address`: TEXT (Địa chỉ)
+- `owner_id`: BIGINT (Foreign Key -> `users.id`)
+- `status`: VARCHAR(20) (`ACTIVE`, `INACTIVE`)
+- `created_at`: TIMESTAMP
 
-Chỉ cho phép chuyển trạng thái theo đúng vòng đời nghiệp vụ.
+#### 2. Bảng `rooms` (Phòng trọ)
+- `id`: BIGSERIAL (Primary Key)
+- `property_id`: BIGINT (Foreign Key -> `properties.id`)
+- `room_code`: VARCHAR(50) (Unique toàn hệ thống - Mã phòng, VD: `KT01-P101`)
+- `floor`: INT (Tầng)
+- `area`: NUMERIC(6, 2) (Diện tích m²)
+- `base_price`: BIGINT (Giá thuê tiêu chuẩn VNĐ)
+- `has_occupant_tracking`: BOOLEAN (True: Có quản lý số người; False: Không quản lý số người)
+- `water_billing_type`: VARCHAR(20) (`BY_METER`, `BY_OCCUPANT`, `FLAT_MONTHLY`)
+- `status`: VARCHAR(20) (`VACANT`, `OCCUPIED`, `MAINTENANCE`)
+
+#### 3. Bảng `tenants` (Người thuê)
+- `id`: BIGSERIAL (Primary Key)
+- `full_name`: VARCHAR(255) (Họ và tên)
+- `phone`: VARCHAR(20) (Số điện thoại)
+- `identity_card`: VARCHAR(30) (Số CCCD/CMND)
+- `birth_date`: DATE
+- `hometown`: VARCHAR(255) (Quê quán)
+- `created_at`: TIMESTAMP
+
+#### 4. Bảng `contracts` (Hợp đồng thuê)
+- `id`: BIGSERIAL (Primary Key)
+- `contract_code`: VARCHAR(50) (Unique)
+- `room_id`: BIGINT (Foreign Key -> `rooms.id`)
+- `primary_tenant_id`: BIGINT (Foreign Key -> `tenants.id`)
+- `start_date`: DATE (Ngày bắt đầu)
+- `end_date`: DATE (Ngày kết thúc)
+- `monthly_rent`: BIGINT (Tiền thuê thoả thuận / tháng)
+- `deposit_amount`: BIGINT (Tiền đặt cọc)
+- `deposit_status`: VARCHAR(20) (`HELD`, `DEDUCTED`, `REFUNDED`)
+- `occupant_count`: INT (Số lượng người ở thực tế)
+- `status`: VARCHAR(20) (`DRAFT`, `ACTIVE`, `EXPIRING`, `EXPIRED`, `TERMINATED`)
+
+#### 5. Bảng `meter_readings` (Chỉ số công tơ điện nước)
+- `id`: BIGSERIAL (Primary Key)
+- `room_id`: BIGINT (Foreign Key -> `rooms.id`)
+- `meter_type`: VARCHAR(10) (`ELECTRICITY`, `WATER`)
+- `billing_period`: VARCHAR(7) (Định dạng: `YYYY-MM`)
+- `previous_date`: DATE (Ngày đo kỳ trước)
+- `previous_value`: NUMERIC(10, 2) (Chỉ số cũ)
+- `reading_date`: DATE (Ngày đo kỳ này)
+- `current_value`: NUMERIC(10, 2) (Chỉ số mới)
+- `consumption`: NUMERIC(10, 2) (Số tiêu thụ = current - previous)
+- `recorded_by`: BIGINT (Foreign Key -> `users.id`)
+- `notes`: TEXT
+
+#### 6. Bảng `invoices` (Hoá đơn dịch vụ)
+- `id`: BIGSERIAL (Primary Key)
+- `invoice_no`: VARCHAR(50) (Unique, VD: `INV-202611-P101`)
+- `room_id`: BIGINT (Foreign Key -> `rooms.id`)
+- `contract_id`: BIGINT (Foreign Key -> `contracts.id`)
+- `billing_period`: VARCHAR(7) (`YYYY-MM`)
+- `issue_date`: DATE (Ngày phát hành)
+- `due_date`: DATE (Hạn thanh toán)
+- `room_amount`: BIGINT (Tiền phòng)
+- `electricity_amount`: BIGINT (Tiền điện)
+- `water_amount`: BIGINT (Tiền nước)
+- `services_amount`: BIGINT (Tổng tiền các dịch vụ khác)
+- `discount_amount`: BIGINT (Giảm trừ)
+- `debt_carried_over`: BIGINT (Nợ cũ chuyển sang)
+- `total_amount`: BIGINT (Tổng số tiền phải thanh toán)
+- `paid_amount`: BIGINT (Số tiền đã thanh toán)
+- `status`: VARCHAR(20) (`DRAFT`, `ISSUED`, `PARTIAL`, `PAID`, `CANCELLED`)
+
+#### 7. Bảng `payments` (Lịch sử thanh toán)
+- `id`: BIGSERIAL (Primary Key)
+- `invoice_id`: BIGINT (Foreign Key -> `invoices.id`)
+- `amount`: BIGINT (Số tiền nộp)
+- `payment_date`: TIMESTAMP (Thời điểm thanh toán)
+- `payment_method`: VARCHAR(20) (`CASH`, `BANK_TRANSFER`)
+- `received_by`: BIGINT (Foreign Key -> `users.id`)
+- `notes`: TEXT
+
+#### 8. Bảng `equipment` & `repair_logs` (Thiết bị & Sửa chữa)
+- `equipment`: `id`, `property_id`, `room_id` (NULL nếu là khu chung), `equipment_code`, `name`, `installed_date`, `initial_cost`
+- `repair_logs`: `id`, `equipment_id`, `repair_date`, `repair_man`, `description`, `cost`, `paid_by` (`OWNER`, `TENANT`), `created_by`
+
+#### 9. Bảng `users`, `user_properties` & `audit_logs` (Phân quyền & Nhật ký)
+- `users`: `id`, `username`, `password_hash`, `full_name`, `phone`, `role` (`OWNER`, `STAFF`), `status`
+- `user_properties`: `user_id`, `property_id`
+- `audit_logs`: `id`, `user_id`, `action`, `entity_type`, `entity_id`, `before_value` (JSON), `after_value` (JSON), `created_at`
 
 ---
 
 # 6. QUY TẮC NGHIỆP VỤ (BUSINESS RULES)
 
-| Mã | Quy tắc |
-|---|---|
-| RULE-01 | Doanh thu thực thu chỉ tính tiền đã ghi nhận của hóa đơn `PAID` hoặc `PARTIAL`; không tính `DRAFT` và `CANCELLED`. |
-| RULE-02 | Mỗi căn hộ chỉ có một hợp đồng `ACTIVE` tại một thời điểm. |
-| RULE-03 | Chỉ số công tơ kỳ sau không nhỏ hơn kỳ trước; thay công tơ phải có ghi chú và chỉ số chốt cũ. |
-| RULE-04 | Hóa đơn đã phát hành không được xóa; chỉ điều chỉnh có lý do và người duyệt. |
-| RULE-05 | Hóa đơn sử dụng bảng giá có hiệu lực tại kỳ tính phí. |
-| RULE-06 | Phạt chậm chỉ tính sau hạn, theo hợp đồng và không vượt mức pháp luật cho phép. |
-| RULE-07 | Sự cố Khẩn cấp/Cao chỉ được `RESOLVED` khi có kết quả và ảnh/biên bản. |
-| RULE-08 | Mã căn, mã hóa đơn, mã ticket không được trùng. |
-| RULE-09 | Người dùng chỉ truy cập tòa được phân quyền; cư dân chỉ xem dữ liệu căn mình. |
-| RULE-10 | Thao tác quan trọng về hóa đơn, hợp đồng, bảng giá và phân quyền phải có audit log. |
+| Mã quy tắc | Tên quy tắc | Mô tả chi tiết thực thi trong hệ thống |
+|---|---|---|
+| **RULE-01** | **Doanh thu thực thu** | Doanh thu thực tế chỉ được ghi nhận từ tổng số tiền trong các bản ghi `payments` của hoá đơn `PAID` hoặc `PARTIAL`. Hoá đơn ở trạng thái `DRAFT` và `CANCELLED` không được tính vào doanh thu. |
+| **RULE-02** | **Một hợp đồng hiệu lực** | Mỗi phòng trọ chỉ có duy nhất một hợp đồng ở trạng thái `ACTIVE` tại một thời điểm. Không cho phép kích hoạt hợp đồng mới nếu phòng đang có hợp đồng `ACTIVE`. |
+| **RULE-03** | **Chỉ số công tơ & Ngày đo** | Chỉ số mới phải $\ge$ Chỉ số cũ. Mỗi bản ghi chỉ số phải lưu ngày đo thực tế. Trường hợp đổi công tơ phải chốt công tơ cũ và ghi nhận số bắt đầu của công tơ mới kèm lý do. |
+| **RULE-04** | **Bất biến hoá đơn** | Hoá đơn đã ở trạng thái `ISSUED` không được phép xoá vật lý khỏi cơ sở dữ liệu. Mọi sửa đổi phải thực hiện bằng bút toán điều chỉnh kèm lý do và ghi nhận audit log. |
+| **RULE-05** | **Bảng giá theo hiệu lực** | Hoá đơn tính phí cho kỳ nào phải lấy bảng giá có hiệu lực tại kỳ tính phí đó, không áp dụng bảng giá mới tạo cho các kỳ cũ đã phát hành. |
+| **RULE-06** | **Phạt chậm thanh toán** | Chỉ được tính sau ngày đến hạn thanh toán (`due_date`) theo tỷ lệ thoả thuận trong hợp đồng và không vượt quá giới hạn pháp luật quy định. |
+| **RULE-07** | **Đối soát tiền cọc** | Tiền đặt cọc được ghi nhận riêng khi lập hợp đồng. Khi thanh lý, tiền cọc được ưu tiên cấn trừ vào công nợ tồn đọng hoặc phí hư hỏng trước khi hoàn tiền thừa cho khách. Mọi thao tác đối trừ cọc phải lưu vết audit log. |
+| **RULE-08** | **Bảo mật dữ liệu theo phạm vi** | Chủ nhà (Owner) xem toàn bộ các khu trọ thuộc quyền sở hữu của mình. Nhân viên (Staff) chỉ được truy cập dữ liệu của các khu trọ được gán trong bảng `user_properties`. |
 
 ---
 
 # 7. YÊU CẦU PHI CHỨC NĂNG (NON-FUNCTIONAL REQUIREMENTS)
 
-> BRD quy định các yêu cầu phi chức năng ở mức nguyên tắc. Các ngưỡng định lượng chưa có trong BRD không được xem là tiêu chí đã chốt; cần xác nhận trong giai đoạn thiết kế/kiểm thử.
+## 7.1. Khả dụng & Trải nghiệm (NFR-USAB)
+- **NFR-USAB-01:** Giao diện hoàn toàn bằng tiếng Việt, thuật ngữ quản lý phòng trọ chuẩn xác, gần gũi.
+- **NFR-USAB-02 (Tối ưu thao tác mobile):** Màn hình ghi chỉ số điện nước phải cho phép người dùng thao tác nhập số mới và bấm chuyển sang phòng tiếp theo trong vòng dưới 5 giây mỗi phòng.
+- **NFR-USAB-03:** Hoạt động mượt mà và tương thích tốt trên các trình duyệt di động phổ biến (Chrome, Safari trên Android & iOS).
 
-## 7.1. NFR-SEC – Bảo mật
-- **NFR-SEC-01:** Mật khẩu phải được băm, không lưu dạng văn bản thuần.
-- **NFR-SEC-02:** Phiên đăng nhập có thời hạn; hỗ trợ đăng xuất.
-- **NFR-SEC-03:** Truyền dữ liệu qua HTTPS khi triển khai thực tế.
-- **NFR-SEC-04:** API kiểm tra xác thực, vai trò và phạm vi tòa ở phía máy chủ.
-- **NFR-SEC-05:** Cư dân không thể truy cập dữ liệu căn hộ khác bằng cách thay ID.
-- **NFR-SEC-06:** Dữ liệu cá nhân cư dân được bảo vệ theo quy định pháp luật Việt Nam hiện hành.
+## 7.2. Bảo mật & Xác thực (NFR-SEC)
+- **NFR-SEC-01:** Mật khẩu tài khoản phải được mã hoá bằng thuật toán băm an toàn (BCrypt hoặc Argon2), không lưu mật khẩu dạng bản rõ.
+- **NFR-SEC-02:** Xác thực API thông qua chuẩn JSON Web Token (JWT) có thời hạn hiệu lực rõ ràng.
+- **NFR-SEC-03:** Kiểm soát phân quyền (Authorization) chặt chẽ ở tầng Backend: Mọi request từ tài khoản Staff đều phải kiểm tra quyền hạn với `property_id` tương ứng, ngăn chặn tuyệt đối việc truy cập trái phép bằng cách sửa ID trên URL/API.
+- **NFR-SEC-04:** Dữ liệu cá nhân của người thuê (CCCD, SĐT) phải được bảo mật theo Nghị định 13/2023/NĐ-CP của Chính phủ về bảo vệ dữ liệu cá nhân.
 
-## 7.2. NFR-USAB – Khả dụng
-- **NFR-USAB-01:** Giao diện tiếng Việt, dễ sử dụng.
-- **NFR-USAB-02:** Hoạt động tốt trên điện thoại và máy tính.
-- **NFR-USAB-03:** Nhân viên kỹ thuật cập nhật sự cố nhanh, ít thao tác.
-- **NFR-USAB-04:** Thông báo lỗi nêu rõ vấn đề và hướng xử lý.
-- **NFR-USAB-05:** Dashboard có kỳ dữ liệu, phạm vi tòa và đơn vị đo rõ ràng.
+## 7.3. Tính toàn vẹn & Lưu trữ (NFR-DATA)
+- **NFR-DATA-01:** Toàn bộ các giá trị tiền tệ trong cơ sở dữ liệu phải được lưu dưới dạng số nguyên (`BIGINT`) tính theo đơn vị VNĐ để triệt tiêu hoàn toàn sai số làm tròn số thực.
+- **NFR-DATA-02:** Các thao tác thanh toán, tạo hoá đơn và thanh lý hợp đồng phải được bao bọc trong Transaction của Database (ACID) để tránh tình trạng lệch dữ liệu khi mất mạng đột ngột.
+- **NFR-DATA-03:** Hệ thống hỗ trợ sao lưu dữ liệu tự động định kỳ (Database Backup).
+- **NFR-DATA-04:** Bảng `audit_logs` có cơ chế bảo vệ, chỉ cho phép ghi (`INSERT`), không cho phép sửa (`UPDATE`) hoặc xoá (`DELETE`).
 
-## 7.3. NFR-DATA – Toàn vẹn và sao lưu
-- **NFR-DATA-01:** Có khóa chính, khóa ngoại và ràng buộc duy nhất phù hợp.
-- **NFR-DATA-02:** Phát hành hóa đơn và ghi nhận thanh toán phải đảm bảo tính nhất quán.
-- **NFR-DATA-03:** Dữ liệu được sao lưu định kỳ.
-- **NFR-DATA-04:** Audit log không cho phép người dùng thông thường sửa hoặc xóa.
-- **NFR-DATA-05:** Bảo toàn dữ liệu giao dịch đã phát sinh theo chính sách lưu trữ.
-
-## 7.4. NFR-SCAL – Khả năng mở rộng
-- **NFR-SCAL-01:** Thêm tòa nhà bằng cấu hình và import, không phải sửa logic cốt lõi.
-- **NFR-SCAL-02:** Phân hệ có trách nhiệm tách biệt, thuận tiện kiểm thử/bảo trì.
-- **NFR-SCAL-03:** Bảng giá, SLA, ngưỡng nhắc nợ và chu kỳ bảo trì có thể cấu hình.
-- **NFR-SCAL-04:** Có thể mở rộng loại phí, sự cố và thiết bị.
-
-## 7.5. NFR-AUDIT – Truy vết
-- **NFR-AUDIT-01:** Thao tác quan trọng truy được người thực hiện và thời điểm.
-- **NFR-AUDIT-02:** Thay đổi dữ liệu quan trọng lưu giá trị trước và sau.
-- **NFR-AUDIT-03:** Lịch sử sự cố, thanh toán và bảo trì có thể tra cứu.
-
-## 7.6. NFR-PERF – Hiệu năng
-BRD chưa quy định ngưỡng thời gian phản hồi hoặc số người dùng đồng thời. Cần xác định quy mô dữ liệu, tải đồng thời và ngưỡng phản hồi trước khi đưa vào tiêu chí nghiệm thu.
+## 7.4. Hiệu năng & Khả năng mở rộng (NFR-PERF & NFR-SCAL)
+- **NFR-PERF-01:** Thời gian tải danh sách phòng và trạng thái phòng phải dưới 1 giây với quy mô lên tới 500 phòng.
+- **NFR-SCAL-01:** Cho phép thêm mới khu trọ và phòng trọ không giới hạn mà không cần cấu hình lại mã nguồn hệ thống.
 
 ---
 
-# 8. ĐỊNH HƯỚNG API (PROPOSED API)
+# 8. ĐỊNH HƯỚNG THIẾT KẾ RESTFUL API
 
-> Endpoint dưới đây là đề xuất phục vụ phân chia thiết kế; cần được chốt trong tài liệu API riêng.
-
-| Nhóm | Method | Endpoint đề xuất | Mục đích |
-|---|---|---|---|
-| Auth | POST | `/api/auth/login` | Đăng nhập |
-| Auth | POST | `/api/auth/logout` | Đăng xuất |
-| Buildings | GET/POST | `/api/buildings` | Danh sách / tạo tòa |
-| Buildings | GET/PUT | `/api/buildings/{id}` | Chi tiết / cập nhật tòa |
-| Units | GET/POST | `/api/units` | Danh sách / tạo căn |
-| Residents | GET/POST | `/api/residents` | Danh sách / tạo cư dân |
-| Contracts | GET/POST | `/api/contracts` | Danh sách / tạo hợp đồng |
-| Fee Rules | GET/POST | `/api/fee-rules` | Tra cứu / tạo bảng giá |
-| Meter Readings | GET/POST | `/api/meter-readings` | Tra cứu / nhập chỉ số |
-| Invoices | POST | `/api/invoices/generate` | Tạo hóa đơn nháp |
-| Invoices | GET | `/api/invoices` | Tra cứu hóa đơn |
-| Invoices | POST | `/api/invoices/{id}/issue` | Phát hành hóa đơn |
-| Payments | POST | `/api/payments` | Ghi nhận thanh toán |
-| Tickets | GET/POST | `/api/tickets` | Tra cứu / tạo sự cố |
-| Tickets | PATCH | `/api/tickets/{id}/status` | Cập nhật trạng thái |
-| Maintenance | GET/POST | `/api/maintenance/tasks` | Tra cứu / tạo công việc |
-| Notifications | GET/POST | `/api/notifications` | Tra cứu / tạo thông báo |
-| Dashboard | GET | `/api/dashboard/summary` | Lấy KPI tổng quan |
-| Import | POST | `/api/imports` | Tải file và import |
-| Reports | GET | `/api/reports/collection` | Báo cáo thu phí/công nợ |
-
-Tất cả API phải áp dụng xác thực và phân quyền. API thay đổi dữ liệu tài chính hoặc trạng thái quan trọng phải ghi audit log.
+| Nhóm chức năng | Phương thức | Endpoint đề xuất | Mô tả chức năng |
+|---|:---:|---|---|
+| **Xác thực** | POST | `/api/auth/login` | Đăng nhập tài khoản, trả về JWT Token & thông tin vai trò |
+| | POST | `/api/auth/logout` | Đăng xuất, huỷ token |
+| **Khu trọ** | GET | `/api/properties` | Lấy danh sách khu trọ của tài khoản hiện tại |
+| | POST | `/api/properties` | Tạo mới khu trọ (Owner) |
+| | PUT | `/api/properties/{id}` | Cập nhật thông tin khu trọ |
+| **Phòng trọ** | GET | `/api/properties/{id}/rooms` | Lấy danh sách phòng thuộc khu trọ kèm trạng thái |
+| | POST | `/api/rooms` | Thêm phòng trọ mới |
+| | PUT | `/api/rooms/{id}` | Sửa thông tin, cấu hình hình thức tính nước và quản lý số người |
+| **Người thuê** | GET / POST | `/api/tenants` | Danh sách người thuê / Thêm mới hồ sơ người thuê |
+| | GET | `/api/tenants/{id}` | Xem chi tiết và lịch sử thuê của người thuê |
+| **Hợp đồng** | POST | `/api/contracts` | Tạo hợp đồng thuê mới kèm tiền cọc và danh sách người ở |
+| | PUT | `/api/contracts/{id}/terminate` | Thanh lý hợp đồng, đối soát hoàn cọc |
+| **Ghi chỉ số** | GET | `/api/rooms/{id}/meters/latest` | Lấy chỉ số cũ và ngày đo kỳ trước |
+| | POST | `/api/meter-readings` | Ghi nhận chỉ số điện/nước mới theo ngày đo |
+| **Hoá đơn** | POST | `/api/invoices/generate-period` | Tự động sinh danh sách hoá đơn nháp (`DRAFT`) cho cả khu trọ |
+| | GET | `/api/invoices` | Tra cứu hoá đơn theo khu trọ, kỳ và trạng thái |
+| | POST | `/api/invoices/{id}/issue` | Duyệt và phát hành hoá đơn (`ISSUED`) |
+| **Thanh toán** | POST | `/api/payments` | Ghi nhận thanh toán cho hoá đơn (thu đủ hoặc một phần) |
+| **Thiết bị** | GET / POST | `/api/equipment` | Danh mục thiết bị / Thêm thiết bị |
+| | POST | `/api/repairs` | Ghi nhận nhật ký sửa chữa thiết bị |
+| **Báo cáo** | GET | `/api/reports/revenue` | Báo cáo doanh thu thực thu theo khu trọ và kỳ |
+| | GET | `/api/reports/debts` | Báo cáo danh sách công nợ quá hạn |
 
 ---
 
 # 9. TIÊU CHÍ KIỂM THỬ VÀ NGHIỆM THU (ACCEPTANCE CRITERIA)
 
-| Mã | Tiêu chí | Kết quả mong đợi |
+| Mã AC | Tiêu chí kiểm thử | Kịch bản & Kết quả mong đợi |
 |---|---|---|
-| AC-01 | Import danh sách căn hộ/cư dân từ Excel | Dữ liệu hợp lệ được nhập; dòng lỗi chỉ rõ vị trí, cột và nguyên nhân |
-| AC-02 | Chuẩn hóa dữ liệu | Mã căn, ngày, tiền tệ và số điện thoại theo chuẩn |
-| AC-03 | Kiểm tra dữ liệu trùng | Không tạo trùng mã căn, hóa đơn, ticket |
-| AC-04 | Tính phí điện/nước | Kết quả theo chỉ số và bảng giá khớp phép tính kiểm thử |
-| AC-05 | Tạo và phát hành hóa đơn | Tạo `DRAFT`, duyệt, phát hành; hóa đơn đã phát hành không bị xóa |
-| AC-06 | Thanh toán một phần/toàn bộ | Trạng thái `PARTIAL`/`PAID` và công nợ chính xác |
-| AC-07 | Dashboard | Hiển thị đúng tỷ lệ thu phí, công nợ quá hạn, sự cố mở |
-| AC-08 | Quy trình sự cố | Đúng vòng đời, lịch sử đầy đủ, SLA và cảnh báo đúng cấu hình |
-| AC-09 | Sự cố Khẩn cấp/Cao | Không thể `RESOLVED` nếu thiếu kết quả và ảnh/biên bản |
-| AC-10 | Lịch bảo trì | Tự sinh công việc trước hạn và tính ngày kế tiếp |
-| AC-11 | Phân quyền | Vai trò chỉ thực hiện chức năng được phép; dữ liệu giới hạn theo tòa |
-| AC-12 | Quyền cư dân | Chỉ xem hóa đơn và sự cố thuộc căn hộ được liên kết |
-| AC-13 | Audit log | Ghi nhận người, thời điểm và thay đổi của nghiệp vụ quan trọng |
-| AC-14 | Blind Test dashboard | Người mới có thể hiểu KPI và nhận biết việc cần chú ý mà không cần hướng dẫn |
+| **AC-01** | **Import dữ liệu phòng và người thuê** | File Excel mẫu có cả dòng đúng và dòng sai (trùng mã phòng, ngày sai định dạng). Kết quả: Dòng đúng được lưu, dòng sai được báo lỗi chi tiết số dòng và cột lỗi. |
+| **AC-02** | **Tính tiền điện theo số thực tế và ngày đo** | Nhập số điện cũ = 1.000, số mới = 1.030, đơn giá 4.000đ/số. Kết quả: Hệ thống tính đúng Tiêu thụ = 30 số, Thành tiền = 120.000 VNĐ. Nếu nhập số mới < 1.000, hệ thống báo lỗi không cho lưu. |
+| **AC-03** | **Tính tiền nước linh hoạt theo 3 hình thức** | - Phòng A (theo đồng hồ): Tiêu thụ 5m³ $\times$ 25.000đ = 125.000 VNĐ.<br>- Phòng B (theo đầu người): 3 người $\times$ 100.000đ = 300.000 VNĐ.<br>- Phòng C (khoán cố định công ty): Đúng mức 500.000 VNĐ.<br>Kết quả trên hoá đơn khớp 100% phép tính. |
+| **AC-04** | **Chu kỳ hoá đơn và thanh toán một phần** | Tạo hoá đơn tổng 3.000.000đ. Khách đóng trước 2.000.000đ. Kết quả: Hoá đơn chuyển sang `PARTIAL`, công nợ còn lại ghi nhận đúng 1.000.000đ chuyển tiếp sang kỳ sau. |
+| **AC-05** | **Vòng đời hợp đồng và đối trừ tiền cọc** | Hợp đồng có tiền cọc 3.000.000đ. Khi thanh lý phòng, tiền nợ hoá đơn cuối kỳ là 1.200.000đ. Kết quả: Hệ thống tự đối trừ, xác nhận hoàn cọc 1.800.000đ và chuyển phòng về trạng thái `VACANT`. |
+| **AC-06** | **Kiểm tra phân quyền Staff** | Đăng nhập tài khoản Staff: Chỉ thấy khu trọ được giao. Thử dùng công cụ gọi API sửa bảng giá hoặc xem khu trọ khác $\rightarrow$ Hệ thống chặn và trả về HTTP 403 Forbidden. |
+| **AC-07** | **Nhật ký sửa chữa thiết bị** | Nhập 3 lần sửa bình nóng lạnh. Kết quả: Màn hình hiển thị đúng tổng chi phí sửa chữa luỹ kế và gắn nhãn "Cân nhắc thay mới". |
 
 ---
 
-# 10. MA TRẬN TRUY XUẤT YÊU CẦU (RTM)
+# 10. MA TRẬN TRUY XUẤT YÊU CẦU (RTM - REQUIREMENTS TRACEABILITY MATRIX)
 
-| Yêu cầu BRD | Phân hệ SRS | Chức năng | Kiểm thử |
+| Yêu cầu trong BRD | Phân hệ trong SRS | Chức năng cụ thể (FR) | Tiêu chí nghiệm thu (AC) |
 |---|---|---|---|
-| BR-01 – Chuẩn hóa và quản trị dữ liệu | BMS-01 | Danh mục, import, chuẩn hóa, kiểm tra trùng/toàn vẹn | Import Test, Data Validation |
-| BR-02 – Tài chính, vận hành, Billing | BMS-03, BMS-04 | Chỉ số, bảng giá, tính phí, hóa đơn, thanh toán, KPI | Calculation, Integration, Dashboard Test |
-| BR-03 – Cư dân, hợp đồng, Debt Engine | BMS-02, BMS-03 | Cư dân, hợp đồng, phân khúc thanh toán, nhắc nợ | Workflow, Business Rule Test |
-| BR-04 – Sự cố và SLA | BMS-05 | Ticket, ưu tiên, giao việc, SLA, đánh giá | Workflow, SLA Test |
-| BR-05 – Thiết bị và bảo trì | BMS-06 | Thiết bị, lịch, task, lịch sử và chi phí | Scheduler, Maintenance Test |
-| BR-06 – Thông báo và Data Storytelling | BMS-04, BMS-07 | CCR, thông báo theo phạm vi, trạng thái đọc | UI, Notification, Blind Test |
-| BR-07 – Phân quyền và Audit | BMS-08 | RBAC, giới hạn theo tòa, audit log | Authorization, Security, Audit Test |
-| NFR-01 – Dễ dùng | Toàn hệ thống | Tiếng Việt, responsive, ít thao tác | Usability Test |
-| NFR-02 – Bảo mật | BMS-08/API | Băm mật khẩu, HTTPS, xác thực/phân quyền | Security Test |
-| NFR-03 – Toàn vẹn và sao lưu | Data Layer | Ràng buộc dữ liệu, backup, bảo vệ log | Integrity, Backup/Restore Test |
-| NFR-04 – Mở rộng | Kiến trúc | Thêm tòa bằng cấu hình/import | Configuration Test |
+| **BR-01: Quản trị & Chuẩn hoá dữ liệu** | RPMS-01 | FR-01.1, FR-01.2, FR-01.4, FR-01.5 | AC-01 |
+| **BR-02: Chỉ số & Billing Engine** | RPMS-03, RPMS-04 | FR-03.1, FR-03.2, FR-03.3, FR-03.4, FR-04.1 | AC-02, AC-03 |
+| **BR-03: Người thuê, Hợp đồng & Cọc** | RPMS-02, RPMS-04 | FR-01.3, FR-02.1, FR-02.2, FR-02.3, FR-04.4 | AC-05 |
+| **BR-04: Thiết bị & Lịch sử sửa chữa** | RPMS-05 | FR-05.1, FR-05.2, FR-05.3 | AC-07 |
+| **BR-05: Phân quyền & Nhật ký** | RPMS-06 | FR-06.1, FR-06.2, FR-06.3 | AC-06 |
+| **NFR-01: Dễ dùng, Mobile-first** | Giao diện | Mục 4 (UI Mobile-First) | Thử nghiệm thực tế trên mobile |
+| **NFR-02: Bảo mật phân quyền** | Backend API | FR-06.1, NFR-SEC-01 -> 04 | AC-06 |
 
 ---
 
-# 11. CÁC VẤN ĐỀ CẦN XÁC NHẬN
-
-Các điểm sau chưa được BRD quy định đủ chi tiết, cần BA/chủ đầu tư xác nhận trước khi thiết kế chi tiết:
-
-1. Một tài khoản có thể có nhiều vai trò hay không? Một nhân viên được quản lý nhiều tòa không?
-2. `unit_code` duy nhất toàn hệ thống hay chỉ trong từng tòa?
-3. Ngưỡng thời gian chuyển hợp đồng sang `EXPIRING`; có quy trình gia hạn không?
-4. Bậc giá điện/nước, quy tắc làm tròn và cách tính khi thay đổi bảng giá giữa kỳ.
-5. Kỳ thu phí, hạn thanh toán mặc định, quy trình duyệt/hủy/điều chỉnh hóa đơn.
-6. Một khoản thanh toán có thể phân bổ cho nhiều hóa đơn không? Xử lý tiền thừa/hoàn tiền thế nào?
-7. Công thức phạt chậm, cách tính theo ngày/tháng và giới hạn.
-8. Ngưỡng phân khúc hành vi thanh toán và số kỳ dùng để đánh giá.
-9. SLA theo từng mức ưu tiên; tính giờ làm việc hay giờ liên tục; xử lý khi tạm dừng ticket.
-10. Khoảng thời gian nhắc bảo trì và ngưỡng xác định thiết bị hỏng lặp lại.
-11. Kênh thông báo giai đoạn đầu: trong ứng dụng, email hay SMS?
-12. Định dạng, dung lượng tối đa và thời gian lưu ảnh/biên bản.
-13. Danh sách báo cáo và mẫu Excel/PDF cần xuất.
-14. Số tòa, số căn, số tài khoản đồng thời và khối lượng giao dịch dự kiến.
-15. Môi trường máy chủ, tên miền, HTTPS, chính sách backup và phục hồi.
-
----
-
-# 12. KẾT LUẬN
-
-Tài liệu SRS này chuyển hóa các yêu cầu nghiệp vụ BR-01 đến BR-07 và các yêu cầu phi chức năng trong BRD phiên bản 0.2 thành các phân hệ, chức năng, luồng xử lý, mô hình dữ liệu logic, định hướng API và tiêu chí kiểm thử cho Smart Building Management System.
-
-Các nội dung được đánh dấu **đề xuất** và các vấn đề tại Mục 11 cần được xác nhận trước khi khóa phạm vi phát triển. Sau khi thống nhất, SRS là căn cứ cho thiết kế kiến trúc chi tiết, cơ sở dữ liệu, API, giao diện và kế hoạch kiểm thử.
-
----
-**Kết thúc tài liệu SRS – Smart Building Management System**
+*Tài liệu SRS này đã hoàn tất việc đặc tả chi tiết và chuẩn hoá theo toàn bộ nội dung của BRD Rental Property Management System. Đây là căn cứ chính thức để tiến hành thiết kế kỹ thuật, giao diện UI và phát triển phần mềm.*

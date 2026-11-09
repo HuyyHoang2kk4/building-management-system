@@ -1,0 +1,358 @@
+{
+  "id": 20,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"projectId\":\"11218801086395076661\",\"sessionId\":\"14650308672696555311\",\"outputComponents\":[{\"design\":{\"screens\":[{\"screenshot\":{\"name\":\"projects/11218801086395076661/files/fed9759ffe9e41749db611cad5acf86b\",\"downloadUrl\":\"https://stitch.googleapis.com/v1/projects/11218801086395076661/files/fed9759ffe9e41749db611cad5acf86b:download\"},\"htmlCode\":{\"name\":\"projects/11218801086395076661/files/60c35a4c9dc44ffa8d0740316acb0ef2\",\"downloadUrl\":\"https://stitch.googleapis.com/v1/projects/11218801086395076661/files/60c35a4c9dc44ffa8d0740316acb0ef2:download\",\"mimeType\":\"text/html\"},\"id\":\"e52ed83f87dc4dc1a6ad1058b7833a74\",\"generatedBy\":\"figaro_agent\",\"width\":\"780\",\"height\":\"2310\",\"title\":\"Quản lý danh sách phòng trọ\",\"prompt\":\"Màn hình di động quản lý danh sách phòng trọ Việt Nam hiện đại, tinh tế và tối ưu thao tác một tay:\\n\\n1. Header & Tổng quan:\\n- Thanh tiêu đề TopAppBar với tên nhà trọ \\\"Nhà trọ An Cư\\\", hiển thị tổng số phòng (vd: 18/20 phòng đang thuê), biểu tượng thông báo và avatar chủ trọ.\\n- Thẻ tóm tắt nhanh thống kê: Tổng phòng, Đã thu (xanh), Chưa thu / Chưa chốt (cam), Phòng trống (xám).\\n- Thanh tìm kiếm mã phòng, tên người thuê kèm nút quét QR và bộ lọc nhanh.\\n\\n2. Bộ lọc trạng thái (Segmented filter chips cuộn ngang):\\n- \\\"Tất cả\\\", \\\"Đã thanh toán (xanh)\\\", \\\"Chưa chốt điện nước (cam)\\\", \\\"Chờ thu tiền (vàng)\\\", \\\"Phòng trống (xám)\\\".\\n\\n3. Danh sách phòng trọ chi tiết theo đúng yêu cầu:\\n- **Phòng P.101**:\\n  + Badge trạng thái: \\\"Đã thu tiền\\\" (màu xanh lá emerald/teal mềm mại, có icon check).\\n  + Thông tin người thuê: 2 người ở, Tên đại diện (vd: Nguyễn Văn Hùng - 0988 ••• 234).\\n  + Tiền thuê: 2.500.000 đ/tháng.\\n  + Chỉ số điện: 1030 kWh (kèm chỉ số nước nếu có, hiển thị rõ ràng).\\n  + Nút thao tác phụ: \\\"Xem chi tiết\\\", \\\"Xem phiếu thu / Hóa đơn\\\".\\n- **Phòng P.102**:\\n  + Badge trạng thái: \\\"Chưa chốt điện nước\\\" (màu cam cảnh báo ấm áp, có icon cảnh báo/đồng hồ).\\n  + Thông tin người thuê: 3 người ở, Tên đại diện (vd: Trần Thị Mai Anh - 0912 ••• 889).\\n  + Tiền thuê: 3.200.000 đ/tháng.\\n  + Cảnh báo nổi bật: \\\"Chưa ghi số điện nước kỳ này\\\".\\n  + Nút hành động nổi bật: Nút \\\"Ghi điện nước\\\" (nút màu cam/brand nổi bật, dễ bấm) và nút \\\"Chi tiết\\\".\\n- **Phòng P.103**:\\n  + Badge trạng thái: \\\"Phòng trống\\\" (màu xám thanh lịch, icon phòng mở/trống).\\n  + Giá niêm yết: 2.800.000 đ/tháng.\\n  + Tiện ích: Đầy đủ nội thất (Điều hòa, nóng lạnh, giường tủ...).\\n  + Nút hành động: \\\"Thêm khách thuê\\\", \\\"Đăng tin tìm khách\\\".\\n\\n4. Thanh thao tác cố định dưới cùng (Action Bar / Bottom Bar):\\n- 2 nút hành động chính cố định phía trên bottom nav hoặc tích hợp floating bar:\\n  + Nút \\\"⚡ Ghi điện nước\\\" (Outline hoặc Secondary button hiện đại).\\n  + Nút \\\"📝 Lập hoá đơn\\\" (Primary button với màu chủ đạo #0d9488, nổi bật, có badge số lượng nếu cần).\\n- Bottom Navigation bar quen thuộc (Tổng quan, Phòng trọ [active], Điện nước, Thu chi, Cá nhân).\\n\\nThiết kế giao diện tiếng Việt chuẩn hóa, typography Plus Jakarta Sans sạch đẹp, các card phòng có độ nổi khối nhẹ (shadow-sm, viền bo tròn bo 12-16px), các badge màu sắc tương phản rõ ràng, chuẩn UI ứng dụng quản lý nhà trọ chuyên nghiệp tại Việt Nam.\",\"name\":\"projects/11218801086395076661/screens/e52ed83f87dc4dc1a6ad1058b7833a74\",\"theme\":{\"colorMode\":\"LIGHT\",\"font\":\"PLUS_JAKARTA_SANS\",\"roundness\":\"ROUND_EIGHT\",\"customColor\":\"#0d9488\",\"headlineFont\":\"PLUS_JAKARTA_SANS\",\"bodyFont\":\"PLUS_JAKARTA_SANS\",\"labelFont\":\"PLUS_JAKARTA_SANS\",\"namedColors\":{\"on_primary\":\"#ffffff\",\"surface\":\"#f8f9ff\",\"on_error\":\"#ffffff\",\"tertiary\":\"#006194\",\"on_primary_fixed\":\"#00201d\",\"surface_bright\":\"#f8f9ff\",\"outline_variant\":\"#bcc9c6\",\"primary\":\"#00685f\",\"surface_container_high\":\"#dce9ff\",\"on_secondary_fixed_variant\":\"#3f465c\",\"secondary_fixed_dim\":\"#bec6e0\",\"surface_container_low\":\"#eff4ff\",\"on_secondary_fixed\":\"#131b2e\",\"on_surface\":\"#0b1c30\",\"primary_fixed_dim\":\"#6bd8cb\",\"secondary_fixed\":\"#dae2fd\",\"surface_variant\":\"#d3e4fe\",\"error_container\":\"#ffdad6\",\"surface_tint\":\"#006a61\",\"tertiary_fixed\":\"#cce5ff\",\"on_background\":\"#0b1c30\",\"primary_fixed\":\"#89f5e7\",\"on_tertiary_fixed\":\"#001d31\",\"on_tertiary_container\":\"#fdfcff\",\"primary_container\":\"#008378\",\"background\":\"#f8f9ff\",\"tertiary_fixed_dim\":\"#93ccff\",\"on_primary_container\":\"#f4fffc\",\"inverse_primary\":\"#6bd8cb\",\"surface_container_highest\":\"#d3e4fe\",\"on_error_container\":\"#93000a\",\"on_surface_variant\":\"#3d4947\",\"on_secondary_container\":\"#5c647a\",\"error\":\"#ba1a1a\",\"on_secondary\":\"#ffffff\",\"tertiary_container\":\"#007bb9\",\"surface_dim\":\"#cbdbf5\",\"inverse_surface\":\"#213145\",\"surface_container_lowest\":\"#ffffff\",\"on_tertiary_fixed_variant\":\"#004b73\",\"outline\":\"#6d7a77\",\"on_primary_fixed_variant\":\"#005049\",\"on_tertiary\":\"#ffffff\",\"surface_container\":\"#e5eeff\",\"secondary_container\":\"#dae2fd\",\"inverse_on_surface\":\"#eaf1ff\",\"secondary\":\"#565e74\"},\"colorVariant\":\"FIDELITY\",\"overridePrimaryColor\":\"#0d9488\",\"overrideSecondaryColor\":\"#0f172a\",\"overrideTertiaryColor\":\"#0284c7\",\"overrideNeutralColor\":\"#64748b\",\"spacingScale\":2,\"typography\":{\"currency-display\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"24px\",\"fontWeight\":\"800\",\"lineHeight\":\"30px\"},\"body-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"13px\",\"fontWeight\":\"400\",\"lineHeight\":\"18px\"},\"headline-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"22px\",\"fontWeight\":\"700\",\"lineHeight\":\"28px\"},\"body-lg\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"15px\",\"fontWeight\":\"400\",\"lineHeight\":\"22px\"},\"title-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"14px\",\"fontWeight\":\"600\",\"lineHeight\":\"20px\"},\"label-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"12px\",\"fontWeight\":\"600\",\"lineHeight\":\"16px\"},\"body-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"12px\",\"fontWeight\":\"400\",\"lineHeight\":\"16px\"},\"headline-lg\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"30px\",\"fontWeight\":\"700\",\"lineHeight\":\"38px\"},\"headline-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"18px\",\"fontWeight\":\"600\",\"lineHeight\":\"24px\"},\"title-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"16px\",\"fontWeight\":\"600\",\"lineHeight\":\"22px\"},\"label-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"11px\",\"fontWeight\":\"500\",\"lineHeight\":\"14px\"}},\"spacing\":{\"space-xl\":\"1.5rem\",\"space-sm\":\"0.5rem\",\"margin\":\"1rem\",\"space-lg\":\"1rem\",\"gutter\":\"0.75rem\",\"space-md\":\"0.75rem\",\"space-xs\":\"0.25rem\"},\"headlineFontFamily\":\"Plus Jakarta Sans\",\"bodyFontFamily\":\"Plus Jakarta Sans\",\"labelFontFamily\":\"Plus Jakarta Sans\"},\"deviceType\":\"MOBILE\",\"screenType\":\"DESIGN\",\"screenMetadata\":{\"agentType\":\"PRO_AGENT\",\"status\":\"COMPLETE\"},\"designSystem\":{\"name\":\"assets/b7d1c53295524176959fc17729dccc83\",\"designSystem\":{\"displayName\":\"Nhà Trọ Số\",\"styleGuidelines\":\"## Brand & Style\\n\\nThis design system powers a specialized, mobile-first operations platform for Vietnamese property owners, landlords, and leasing managers (Quản lý phòng trọ, căn hộ dịch vụ, nhà trọ). The system balances pragmatic utility with modern operational clarity: high-density information architecture designed for rapid data logging (chỉ số điện nước, phiếu thu, hợp đồng) while maintaining effortless readability under bright sunlight or on the move.\\n\\nThe design aesthetic blends **Modern Operational Minimalist** with crisp, structural card architecture. Key attributes:\\n- **Tin cậy & Rõ ràng (Trust & Clarity):** Financial totals, occupancy ratios, and room statuses must be scannable within milliseconds.\\n- **Thực dụng & Nhanh gọn (Pragmatic Speed):** Compact touch targets, zero ornamental clutter, and instant contextual color coding.\\n- **Hiện đại & Sạch sẽ (Clean Polish):** A cool neutral canvas (`#F8FAFC`) framed by a deep, authoritative teal-emerald (`#0F766E`) accentuating stability and property stewardship.\\n\\n## Layout & Spacing\\n\\nDesigned primarily for standard 375px–430px smartphone viewports with an 8pt-based, compact sub-grid:\\n\\n- **Mobile Viewport Grid:** 4 columns with `12px` (0.75rem) gutters and `16px` (1rem) safe screen margins.\\n- **Room Matrix Grid:** The core room view toggles between a 2-column card grid (390px screens: ~165px card width) and an edge-to-edge compact list view with 8px vertical gaps.\\n- **Density Philosophy:** Utility tracking forms (Ghi số điện/nước) favor vertical tightness: 6px to 8px between label and numeric input to maximize screen real estate before the virtual numpad appears.\\n- **Safe Zones:** Sticky bottom navigation and quick-action toolbars feature a dedicated `env(safe-area-inset-bottom) + 12px` clearance.\\n\\n## Elevation & Depth\\n\\nVisual hierarchy uses a refined hybrid approach: crisp, single-pixel hairline borders combined with soft ambient light scattering.\\n\\n- **Canvas (Level 0):** Pure background tone `#F8FAFC`.\\n- **Card Flat (Level 1):** Background `#FFFFFF`, bordered with `1px solid #E2E8F0`, ambient shadow `0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02)`.\\n- **Interactive Card Hover/Active (Level 2):** Applied when selecting a room card or tapping a tenant entry: `0 4px 12px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04)`, border color switches to `#CBD5E1`.\\n- **Sticky Actions & Modals (Level 3):** Bottom sheets (Tạo hóa đơn, Chốt số điện nước) and sticky summaries: `0 -4px 20px rgba(15, 23, 42, 0.08)`, subtle border-top `1px solid #E2E8F0`.\\n- **Floating Operational Button (FAB):** Background `#0D9488`, shadow `0 8px 20px rgba(13, 148, 136, 0.35)`.\\n\\n## Components\\n\\n### 1. Room Cards (Thẻ phòng)\\n- **Structure:** Pure white card with 12px internal padding.\\n- **Header:** Room number (e.g., \\\"P.203\\\") in `headline-sm` bold slate `#0F172A` paired with the status pill aligned right.\\n- **Body:** Tenant name, current contract end date, and rent amount (`title-sm` in teal `#0D9488`).\\n- **Utility Sub-strip:** Subtle divider (`#F1F5F9`) followed by two meter badges: Electricity (⚡ 214 kWh) and Water (💧 18 m³), with an amber dot indicator if readings have not been submitted this month.\\n\\n### 2. Status Badges (Huy hiệu trạng thái)\\n- Height: 24px, padding: 2px 10px, font: `label-sm` bold, border-radius: 9999px.\\n- Border thickness: 1px solid, matching the status token configuration.\\n- Optional leading 6px pulsing dot for urgent attention (Quá hạn, Chưa chốt).\\n\\n### 3. Utility Entry Stepper & Inputs (Nhập chỉ số điện nước)\\n- Number input fields feature built-in suffix labels (\\\"kWh\\\", \\\"m³\\\", \\\"VNĐ\\\") locked to the right side in `#94A3B8`.\\n- Includes an attached \\\"Ảnh đồng hồ\\\" (Meter photo) camera icon button directly adjacent to the input field for proof capture.\\n- Previous month reading displayed directly beneath the field in `body-sm` muted gray (`Tháng trước: 182 kWh`).\\n\\n### 4. Financial Summary Cards (Báo cáo doanh thu)\\n- High-contrast block at the dashboard head.\\n- Total collected vs. Total outstanding (Đã thu vs. Còn nợ) presented in two unequal split cells with distinct background tints (Soft emerald `#F0FDF4` and Soft red `#FEF2F2`).\\n\\n### 5. Buttons & Actions\\n- **Primary Button:** Height 48px, background `#0D9488`, active state `#0F766E`, text white `title-sm`, 12px corner radius.\\n- **Quick Action Row:** Horizontal icon pills for instant messaging (Zalo / SMS / Gọi điện) to the tenant with a single tap.\\n- **Filter Chips:** Height 32px, outline `#E2E8F0`, active state filled with `#0D9488` text white.\",\"theme\":{\"colorMode\":\"LIGHT\",\"font\":\"PLUS_JAKARTA_SANS\",\"roundness\":\"ROUND_EIGHT\",\"customColor\":\"#0d9488\",\"headlineFont\":\"PLUS_JAKARTA_SANS\",\"bodyFont\":\"PLUS_JAKARTA_SANS\",\"labelFont\":\"PLUS_JAKARTA_SANS\",\"namedColors\":{\"on_error_container\":\"#93000a\",\"on_surface_variant\":\"#3d4947\",\"secondary_container\":\"#dae2fd\",\"tertiary_container\":\"#007bb9\",\"primary_fixed_dim\":\"#6bd8cb\",\"on_surface\":\"#0b1c30\",\"tertiary_fixed_dim\":\"#93ccff\",\"surface_dim\":\"#cbdbf5\",\"outline\":\"#6d7a77\",\"error\":\"#ba1a1a\",\"surface_container_low\":\"#eff4ff\",\"inverse_on_surface\":\"#eaf1ff\",\"on_tertiary\":\"#ffffff\",\"inverse_primary\":\"#6bd8cb\",\"surface_bright\":\"#f8f9ff\",\"tertiary\":\"#006194\",\"on_error\":\"#ffffff\",\"on_primary\":\"#ffffff\",\"inverse_surface\":\"#213145\",\"surface_container_high\":\"#dce9ff\",\"on_tertiary_fixed_variant\":\"#004b73\",\"secondary_fixed\":\"#dae2fd\",\"primary_fixed\":\"#89f5e7\",\"on_background\":\"#0b1c30\",\"secondary\":\"#565e74\",\"surface_container\":\"#e5eeff\",\"on_primary_fixed_variant\":\"#005049\",\"on_secondary_fixed_variant\":\"#3f465c\",\"on_primary_container\":\"#f4fffc\",\"surface_variant\":\"#d3e4fe\",\"error_container\":\"#ffdad6\",\"tertiary_fixed\":\"#cce5ff\",\"surface_container_highest\":\"#d3e4fe\",\"surface_tint\":\"#006a61\",\"on_tertiary_fixed\":\"#001d31\",\"primary_container\":\"#008378\",\"primary\":\"#00685f\",\"secondary_fixed_dim\":\"#bec6e0\",\"surface_container_lowest\":\"#ffffff\",\"outline_variant\":\"#bcc9c6\",\"on_secondary_fixed\":\"#131b2e\",\"on_secondary\":\"#ffffff\",\"surface\":\"#f8f9ff\",\"on_primary_fixed\":\"#00201d\",\"on_tertiary_container\":\"#fdfcff\",\"on_secondary_container\":\"#5c647a\",\"background\":\"#f8f9ff\"},\"designMd\":\"---\\nname: Nhà Trọ Số\\ncolors:\\n  surface: '#f8f9ff'\\n  surface-dim: '#cbdbf5'\\n  surface-bright: '#f8f9ff'\\n  surface-container-lowest: '#ffffff'\\n  surface-container-low: '#eff4ff'\\n  surface-container: '#e5eeff'\\n  surface-container-high: '#dce9ff'\\n  surface-container-highest: '#d3e4fe'\\n  on-surface: '#0b1c30'\\n  on-surface-variant: '#3d4947'\\n  inverse-surface: '#213145'\\n  inverse-on-surface: '#eaf1ff'\\n  outline: '#6d7a77'\\n  outline-variant: '#bcc9c6'\\n  surface-tint: '#006a61'\\n  primary: '#00685f'\\n  on-primary: '#ffffff'\\n  primary-container: '#008378'\\n  on-primary-container: '#f4fffc'\\n  inverse-primary: '#6bd8cb'\\n  secondary: '#565e74'\\n  on-secondary: '#ffffff'\\n  secondary-container: '#dae2fd'\\n  on-secondary-container: '#5c647a'\\n  tertiary: '#006194'\\n  on-tertiary: '#ffffff'\\n  tertiary-container: '#007bb9'\\n  on-tertiary-container: '#fdfcff'\\n  error: '#ba1a1a'\\n  on-error: '#ffffff'\\n  error-container: '#ffdad6'\\n  on-error-container: '#93000a'\\n  primary-fixed: '#89f5e7'\\n  primary-fixed-dim: '#6bd8cb'\\n  on-primary-fixed: '#00201d'\\n  on-primary-fixed-variant: '#005049'\\n  secondary-fixed: '#dae2fd'\\n  secondary-fixed-dim: '#bec6e0'\\n  on-secondary-fixed: '#131b2e'\\n  on-secondary-fixed-variant: '#3f465c'\\n  tertiary-fixed: '#cce5ff'\\n  tertiary-fixed-dim: '#93ccff'\\n  on-tertiary-fixed: '#001d31'\\n  on-tertiary-fixed-variant: '#004b73'\\n  background: '#f8f9ff'\\n  on-background: '#0b1c30'\\n  surface-variant: '#d3e4fe'\\ntypography:\\n  headline-lg:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 30px\\n    fontWeight: '700'\\n    lineHeight: 38px\\n  headline-md:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 22px\\n    fontWeight: '700'\\n    lineHeight: 28px\\n  headline-sm:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 18px\\n    fontWeight: '600'\\n    lineHeight: 24px\\n  title-md:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 16px\\n    fontWeight: '600'\\n    lineHeight: 22px\\n  title-sm:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 14px\\n    fontWeight: '600'\\n    lineHeight: 20px\\n  body-lg:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 15px\\n    fontWeight: '400'\\n    lineHeight: 22px\\n  body-md:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 13px\\n    fontWeight: '400'\\n    lineHeight: 18px\\n  body-sm:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 12px\\n    fontWeight: '400'\\n    lineHeight: 16px\\n  currency-display:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 24px\\n    fontWeight: '800'\\n    lineHeight: 30px\\n  label-md:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 12px\\n    fontWeight: '600'\\n    lineHeight: 16px\\n  label-sm:\\n    fontFamily: Plus Jakarta Sans\\n    fontSize: 11px\\n    fontWeight: '500'\\n    lineHeight: 14px\\nrounded:\\n  sm: 0.25rem\\n  DEFAULT: 0.5rem\\n  md: 0.75rem\\n  lg: 1rem\\n  xl: 1.5rem\\n  full: 9999px\\nspacing:\\n  gutter: 0.75rem\\n  margin: 1rem\\n  space-xs: 0.25rem\\n  space-sm: 0.5rem\\n  space-md: 0.75rem\\n  space-lg: 1rem\\n  space-xl: 1.5rem\\n---\\n\\n## Brand & Style\\n\\nThis design system powers a specialized, mobile-first operations platform for Vietnamese property owners, landlords, and leasing managers (Quản lý phòng trọ, căn hộ dịch vụ, nhà trọ). The system balances pragmatic utility with modern operational clarity: high-density information architecture designed for rapid data logging (chỉ số điện nước, phiếu thu, hợp đồng) while maintaining effortless readability under bright sunlight or on the move.\\n\\nThe design aesthetic blends **Modern Operational Minimalist** with crisp, structural card architecture. Key attributes:\\n- **Tin cậy & Rõ ràng (Trust & Clarity):** Financial totals, occupancy ratios, and room statuses must be scannable within milliseconds.\\n- **Thực dụng & Nhanh gọn (Pragmatic Speed):** Compact touch targets, zero ornamental clutter, and instant contextual color coding.\\n- **Hiện đại & Sạch sẽ (Clean Polish):** A cool neutral canvas (`#F8FAFC`) framed by a deep, authoritative teal-emerald (`#0F766E`) accentuating stability and property stewardship.\\n\\n## Colors\\n\\nThe palette is engineered around high operational contrast, semantic legibility, and Vietnamese business clarity:\\n\\n- **Primary (`#0D9488` / Deep Emerald Teal):** Anchors operational actions, primary buttons (Tạo phiếu thu, Thêm phòng, Xác nhận), selected tabs, and key navigational headers.\\n- **Secondary (`#0F172A` / Slate Midnight):** Used for prominent numerical figures, total revenue amounts, room identifiers (Phòng 101, Căn 3A), and critical text headers.\\n- **Tertiary (`#0284C7` / Cyan Blue):** Highlights utility tracking actions (Ghi điện nước, Đồng hồ thông minh, Lịch bảo trì).\\n- **Neutral Canvas (`#F8FAFC` to `#F1F5F9`):** Soft, cool-gray backdrop preventing glare during field inspections, providing crisp contrast for pure white cards (`#FFFFFF`).\\n\\n### Operational Status Tokens (Trạng thái phòng & công nợ)\\nStrict semantic colors differentiate room and invoice conditions across all card badges:\\n- **Đã thanh toán / Hoạt động tốt (Paid / Settled):** Background `#DCFCE7`, Border `#86EFAC`, Text `#15803D`.\\n- **Chưa chốt điện nước / Chờ duyệt (Pending utilities / Pending confirmation):** Background `#FFEDD5`, Border `#FDBA74`, Text `#C2410C`.\\n- **Quá hạn / Nợ tiền (Overdue / Debt):** Background `#FEE2E2`, Border `#FCA5A5`, Text `#B91C1C`.\\n- **Phòng trống / Ngưng cho thuê (Vacant / Inactive):** Background `#F1F5F9`, Border `#CBD5E1`, Text `#475569`.\\n- **Đã đặt cọc (Reserved):** Background `#E0F2FE`, Border `#7DD3FC`, Text `#0369A1`.\\n\\n## Typography\\n\\nThe type stack is unified under **Plus Jakarta Sans**, chosen for its tall x-height, open apertures, and impeccable rendering of Vietnamese diacritics (dấu ngã, hỏi, nặng, sắc, huyền). Diacritic stacking remains clear and uncompressed even at condensed label sizes.\\n\\n- **Monetary & Metric Emphasis:** Currency entries (e.g., `4.500.000 đ`, `38 kWh`) rely on `currency-display` and `title-md` with tabular numeric lining (`font-variant-numeric: tabular-nums`) so utility readings and billing amounts align perfectly in vertical lists.\\n- **Labels & Status Pills:** Uses uppercase or capitalized tight tracking (`letter-spacing: 0.02em`) on `label-sm` for immediate recognition inside 22px badges.\\n\\n## Layout & Spacing\\n\\nDesigned primarily for standard 375px–430px smartphone viewports with an 8pt-based, compact sub-grid:\\n\\n- **Mobile Viewport Grid:** 4 columns with `12px` (0.75rem) gutters and `16px` (1rem) safe screen margins.\\n- **Room Matrix Grid:** The core room view toggles between a 2-column card grid (390px screens: ~165px card width) and an edge-to-edge compact list view with 8px vertical gaps.\\n- **Density Philosophy:** Utility tracking forms (Ghi số điện/nước) favor vertical tightness: 6px to 8px between label and numeric input to maximize screen real estate before the virtual numpad appears.\\n- **Safe Zones:** Sticky bottom navigation and quick-action toolbars feature a dedicated `env(safe-area-inset-bottom) + 12px` clearance.\\n\\n## Elevation & Depth\\n\\nVisual hierarchy uses a refined hybrid approach: crisp, single-pixel hairline borders combined with soft ambient light scattering.\\n\\n- **Canvas (Level 0):** Pure background tone `#F8FAFC`.\\n- **Card Flat (Level 1):** Background `#FFFFFF`, bordered with `1px solid #E2E8F0`, ambient shadow `0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02)`.\\n- **Interactive Card Hover/Active (Level 2):** Applied when selecting a room card or tapping a tenant entry: `0 4px 12px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04)`, border color switches to `#CBD5E1`.\\n- **Sticky Actions & Modals (Level 3):** Bottom sheets (Tạo hóa đơn, Chốt số điện nước) and sticky summaries: `0 -4px 20px rgba(15, 23, 42, 0.08)`, subtle border-top `1px solid #E2E8F0`.\\n- **Floating Operational Button (FAB):** Background `#0D9488`, shadow `0 8px 20px rgba(13, 148, 136, 0.35)`.\\n\\n## Shapes\\n\\nThe geometry features balanced modern roundedness:\\n\\n- **Standard Containers & Cards (`rounded-lg` / 16px):** Room units, invoice summary panels, monthly metric cards.\\n- **Interactive Controls & Inputs (`rounded` / 10px - 12px):** Form fields, utility meter inputs, primary action buttons.\\n- **Badges & Segmented Controls (Full Pill / 9999px):** Status badges (Đã thanh toán, Quá hạn), filter tags (Tầng 1, Tầng 2, Đang nợ), and metric counters.\\n- **Bottom Drawers:** Top-left and top-right radii set to `20px` for smooth modal transitions.\\n\\n## Components\\n\\n### 1. Room Cards (Thẻ phòng)\\n- **Structure:** Pure white card with 12px internal padding.\\n- **Header:** Room number (e.g., \\\"P.203\\\") in `headline-sm` bold slate `#0F172A` paired with the status pill aligned right.\\n- **Body:** Tenant name, current contract end date, and rent amount (`title-sm` in teal `#0D9488`).\\n- **Utility Sub-strip:** Subtle divider (`#F1F5F9`) followed by two meter badges: Electricity (⚡ 214 kWh) and Water (💧 18 m³), with an amber dot indicator if readings have not been submitted this month.\\n\\n### 2. Status Badges (Huy hiệu trạng thái)\\n- Height: 24px, padding: 2px 10px, font: `label-sm` bold, border-radius: 9999px.\\n- Border thickness: 1px solid, matching the status token configuration.\\n- Optional leading 6px pulsing dot for urgent attention (Quá hạn, Chưa chốt).\\n\\n### 3. Utility Entry Stepper & Inputs (Nhập chỉ số điện nước)\\n- Number input fields feature built-in suffix labels (\\\"kWh\\\", \\\"m³\\\", \\\"VNĐ\\\") locked to the right side in `#94A3B8`.\\n- Includes an attached \\\"Ảnh đồng hồ\\\" (Meter photo) camera icon button directly adjacent to the input field for proof capture.\\n- Previous month reading displayed directly beneath the field in `body-sm` muted gray (`Tháng trước: 182 kWh`).\\n\\n### 4. Financial Summary Cards (Báo cáo doanh thu)\\n- High-contrast block at the dashboard head.\\n- Total collected vs. Total outstanding (Đã thu vs. Còn nợ) presented in two unequal split cells with distinct background tints (Soft emerald `#F0FDF4` and Soft red `#FEF2F2`).\\n\\n### 5. Buttons & Actions\\n- **Primary Button:** Height 48px, background `#0D9488`, active state `#0F766E`, text white `title-sm`, 12px corner radius.\\n- **Quick Action Row:** Horizontal icon pills for instant messaging (Zalo / SMS / Gọi điện) to the tenant with a single tap.\\n- **Filter Chips:** Height 32px, outline `#E2E8F0`, active state filled with `#0D9488` text white.\",\"colorVariant\":\"FIDELITY\",\"overridePrimaryColor\":\"#0d9488\",\"overrideSecondaryColor\":\"#0f172a\",\"overrideTertiaryColor\":\"#0284c7\",\"overrideNeutralColor\":\"#64748b\",\"spacingScale\":2,\"typography\":{\"headline-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"22px\",\"fontWeight\":\"700\",\"lineHeight\":\"28px\"},\"title-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"16px\",\"fontWeight\":\"600\",\"lineHeight\":\"22px\"},\"body-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"12px\",\"fontWeight\":\"400\",\"lineHeight\":\"16px\"},\"label-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"11px\",\"fontWeight\":\"500\",\"lineHeight\":\"14px\"},\"headline-lg\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"30px\",\"fontWeight\":\"700\",\"lineHeight\":\"38px\"},\"currency-display\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"24px\",\"fontWeight\":\"800\",\"lineHeight\":\"30px\"},\"title-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"14px\",\"fontWeight\":\"600\",\"lineHeight\":\"20px\"},\"label-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"12px\",\"fontWeight\":\"600\",\"lineHeight\":\"16px\"},\"body-md\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"13px\",\"fontWeight\":\"400\",\"lineHeight\":\"18px\"},\"body-lg\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"15px\",\"fontWeight\":\"400\",\"lineHeight\":\"22px\"},\"headline-sm\":{\"fontFamily\":\"Plus Jakarta Sans\",\"fontSize\":\"18px\",\"fontWeight\":\"600\",\"lineHeight\":\"24px\"}},\"spacing\":{\"space-xl\":\"1.5rem\",\"space-lg\":\"1rem\",\"gutter\":\"0.75rem\",\"space-xs\":\"0.25rem\",\"space-md\":\"0.75rem\",\"space-sm\":\"0.5rem\",\"margin\":\"1rem\"},\"headlineFontFamily\":\"Plus Jakarta Sans\",\"bodyFontFamily\":\"Plus Jakarta Sans\",\"labelFontFamily\":\"Plus Jakarta Sans\"}},\"version\":\"1\"}}],\"theme\":{}}},{\"text\":\"Tôi đã thiết kế xong giao diện di động quản lý danh sách phòng trọ chuẩn Việt Nam theo đúng yêu cầu chi tiết của bạn:\\n\\n### Các điểm nổi bật trong thiết kế:\\n1. **Thống kê & Bộ lọc trạng thái**:\\n   - Thẻ thống kê tổng quan nhanh: Tổng số (20), Đã thu (14), Chưa chốt (4), Trống (2).\\n   - Thanh tìm kiếm thông minh kết hợp quét mã QR và bộ lọc trạng thái cuộn ngang (Tất cả, Đã thanh toán, Chưa chốt điện nước, Phòng trống).\\n\\n2. **Chi tiết danh sách phòng theo từng trạng thái cụ thể**:\\n   - **Phòng P.101**: Badge **\\\"Đã thu tiền\\\"** (xanh lá), thông tin 2 người ở, giá thuê **2.500.000 đ/tháng**, chỉ số điện rõ ràng **1030 kWh**, kèm nút xem chi tiết và hóa đơn.\\n   - **Phòng P.102**: Badge **\\\"Chưa chốt điện nước\\\"** (màu cam cảnh báo), thông tin 3 người ở, giá thuê 3.200.000 đ/tháng, khối cảnh báo nổi bật kèm nút hành động chính **\\\"Ghi điện nước\\\"**.\\n   - **Phòng P.103**: Badge **\\\"Phòng trống\\\"** (màu xám trung tính), giá niêm yết, danh sách tiện ích nội thất sẵn có cùng thao tác thêm khách thuê nhanh.\\n\\n3. **Thao tác nhanh & Điều hướng**:\\n   - Thanh thao tác nhanh hỗ trợ chốt điện nước và lập hóa đơn, cùng thanh điều hướng dưới đáy (*Tổng quan, Phòng trọ, Điện nước, Thu chi, Cá nhân*) chuẩn UX app di động.\"},{\"suggestion\":\"Thiết kế màn hình chi tiết khi bấm 'Ghi điện nước' cho phòng P.102\"},{\"suggestion\":\"Thiết kế popup/màn hình 'Lập hoá đơn' tổng hợp toàn bộ khu trọ\"},{\"suggestion\":\"Thêm tính năng gửi thông báo nhắc tiền phòng qua Zalo/SMS\"}]}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "outputComponents": [
+        {
+          "design": {
+            "screens": [
+              {
+                "designSystem": {
+                  "designSystem": {
+                    "displayName": "Nhà Trọ Số",
+                    "styleGuidelines": "## Brand & Style\n\nThis design system powers a specialized, mobile-first operations platform for Vietnamese property owners, landlords, and leasing managers (Quản lý phòng trọ, căn hộ dịch vụ, nhà trọ). The system balances pragmatic utility with modern operational clarity: high-density information architecture designed for rapid data logging (chỉ số điện nước, phiếu thu, hợp đồng) while maintaining effortless readability under bright sunlight or on the move.\n\nThe design aesthetic blends **Modern Operational Minimalist** with crisp, structural card architecture. Key attributes:\n- **Tin cậy & Rõ ràng (Trust & Clarity):** Financial totals, occupancy ratios, and room statuses must be scannable within milliseconds.\n- **Thực dụng & Nhanh gọn (Pragmatic Speed):** Compact touch targets, zero ornamental clutter, and instant contextual color coding.\n- **Hiện đại & Sạch sẽ (Clean Polish):** A cool neutral canvas (`#F8FAFC`) framed by a deep, authoritative teal-emerald (`#0F766E`) accentuating stability and property stewardship.\n\n## Layout & Spacing\n\nDesigned primarily for standard 375px–430px smartphone viewports with an 8pt-based, compact sub-grid:\n\n- **Mobile Viewport Grid:** 4 columns with `12px` (0.75rem) gutters and `16px` (1rem) safe screen margins.\n- **Room Matrix Grid:** The core room view toggles between a 2-column card grid (390px screens: ~165px card width) and an edge-to-edge compact list view with 8px vertical gaps.\n- **Density Philosophy:** Utility tracking forms (Ghi số điện/nước) favor vertical tightness: 6px to 8px between label and numeric input to maximize screen real estate before the virtual numpad appears.\n- **Safe Zones:** Sticky bottom navigation and quick-action toolbars feature a dedicated `env(safe-area-inset-bottom) + 12px` clearance.\n\n## Elevation & Depth\n\nVisual hierarchy uses a refined hybrid approach: crisp, single-pixel hairline borders combined with soft ambient light scattering.\n\n- **Canvas (Level 0):** Pure background tone `#F8FAFC`.\n- **Card Flat (Level 1):** Background `#FFFFFF`, bordered with `1px solid #E2E8F0`, ambient shadow `0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02)`.\n- **Interactive Card Hover/Active (Level 2):** Applied when selecting a room card or tapping a tenant entry: `0 4px 12px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04)`, border color switches to `#CBD5E1`.\n- **Sticky Actions & Modals (Level 3):** Bottom sheets (Tạo hóa đơn, Chốt số điện nước) and sticky summaries: `0 -4px 20px rgba(15, 23, 42, 0.08)`, subtle border-top `1px solid #E2E8F0`.\n- **Floating Operational Button (FAB):** Background `#0D9488`, shadow `0 8px 20px rgba(13, 148, 136, 0.35)`.\n\n## Components\n\n### 1. Room Cards (Thẻ phòng)\n- **Structure:** Pure white card with 12px internal padding.\n- **Header:** Room number (e.g., \"P.203\") in `headline-sm` bold slate `#0F172A` paired with the status pill aligned right.\n- **Body:** Tenant name, current contract end date, and rent amount (`title-sm` in teal `#0D9488`).\n- **Utility Sub-strip:** Subtle divider (`#F1F5F9`) followed by two meter badges: Electricity (⚡ 214 kWh) and Water (💧 18 m³), with an amber dot indicator if readings have not been submitted this month.\n\n### 2. Status Badges (Huy hiệu trạng thái)\n- Height: 24px, padding: 2px 10px, font: `label-sm` bold, border-radius: 9999px.\n- Border thickness: 1px solid, matching the status token configuration.\n- Optional leading 6px pulsing dot for urgent attention (Quá hạn, Chưa chốt).\n\n### 3. Utility Entry Stepper & Inputs (Nhập chỉ số điện nước)\n- Number input fields feature built-in suffix labels (\"kWh\", \"m³\", \"VNĐ\") locked to the right side in `#94A3B8`.\n- Includes an attached \"Ảnh đồng hồ\" (Meter photo) camera icon button directly adjacent to the input field for proof capture.\n- Previous month reading displayed directly beneath the field in `body-sm` muted gray (`Tháng trước: 182 kWh`).\n\n### 4. Financial Summary Cards (Báo cáo doanh thu)\n- High-contrast block at the dashboard head.\n- Total collected vs. Total outstanding (Đã thu vs. Còn nợ) presented in two unequal split cells with distinct background tints (Soft emerald `#F0FDF4` and Soft red `#FEF2F2`).\n\n### 5. Buttons & Actions\n- **Primary Button:** Height 48px, background `#0D9488`, active state `#0F766E`, text white `title-sm`, 12px corner radius.\n- **Quick Action Row:** Horizontal icon pills for instant messaging (Zalo / SMS / Gọi điện) to the tenant with a single tap.\n- **Filter Chips:** Height 32px, outline `#E2E8F0`, active state filled with `#0D9488` text white.",
+                    "theme": {
+                      "bodyFont": "PLUS_JAKARTA_SANS",
+                      "bodyFontFamily": "Plus Jakarta Sans",
+                      "colorMode": "LIGHT",
+                      "colorVariant": "FIDELITY",
+                      "customColor": "#0d9488",
+                      "designMd": "---\nname: Nhà Trọ Số\ncolors:\n  surface: '#f8f9ff'\n  surface-dim: '#cbdbf5'\n  surface-bright: '#f8f9ff'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#eff4ff'\n  surface-container: '#e5eeff'\n  surface-container-high: '#dce9ff'\n  surface-container-highest: '#d3e4fe'\n  on-surface: '#0b1c30'\n  on-surface-variant: '#3d4947'\n  inverse-surface: '#213145'\n  inverse-on-surface: '#eaf1ff'\n  outline: '#6d7a77'\n  outline-variant: '#bcc9c6'\n  surface-tint: '#006a61'\n  primary: '#00685f'\n  on-primary: '#ffffff'\n  primary-container: '#008378'\n  on-primary-container: '#f4fffc'\n  inverse-primary: '#6bd8cb'\n  secondary: '#565e74'\n  on-secondary: '#ffffff'\n  secondary-container: '#dae2fd'\n  on-secondary-container: '#5c647a'\n  tertiary: '#006194'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#007bb9'\n  on-tertiary-container: '#fdfcff'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#89f5e7'\n  primary-fixed-dim: '#6bd8cb'\n  on-primary-fixed: '#00201d'\n  on-primary-fixed-variant: '#005049'\n  secondary-fixed: '#dae2fd'\n  secondary-fixed-dim: '#bec6e0'\n  on-secondary-fixed: '#131b2e'\n  on-secondary-fixed-variant: '#3f465c'\n  tertiary-fixed: '#cce5ff'\n  tertiary-fixed-dim: '#93ccff'\n  on-tertiary-fixed: '#001d31'\n  on-tertiary-fixed-variant: '#004b73'\n  background: '#f8f9ff'\n  on-background: '#0b1c30'\n  surface-variant: '#d3e4fe'\ntypography:\n  headline-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 30px\n    fontWeight: '700'\n    lineHeight: 38px\n  headline-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 22px\n    fontWeight: '700'\n    lineHeight: 28px\n  headline-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 18px\n    fontWeight: '600'\n    lineHeight: 24px\n  title-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 16px\n    fontWeight: '600'\n    lineHeight: 22px\n  title-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 14px\n    fontWeight: '600'\n    lineHeight: 20px\n  body-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 15px\n    fontWeight: '400'\n    lineHeight: 22px\n  body-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 13px\n    fontWeight: '400'\n    lineHeight: 18px\n  body-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 12px\n    fontWeight: '400'\n    lineHeight: 16px\n  currency-display:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 24px\n    fontWeight: '800'\n    lineHeight: 30px\n  label-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 12px\n    fontWeight: '600'\n    lineHeight: 16px\n  label-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 11px\n    fontWeight: '500'\n    lineHeight: 14px\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  gutter: 0.75rem\n  margin: 1rem\n  space-xs: 0.25rem\n  space-sm: 0.5rem\n  space-md: 0.75rem\n  space-lg: 1rem\n  space-xl: 1.5rem\n---\n\n## Brand & Style\n\nThis design system powers a specialized, mobile-first operations platform for Vietnamese property owners, landlords, and leasing managers (Quản lý phòng trọ, căn hộ dịch vụ, nhà trọ). The system balances pragmatic utility with modern operational clarity: high-density information architecture designed for rapid data logging (chỉ số điện nước, phiếu thu, hợp đồng) while maintaining effortless readability under bright sunlight or on the move.\n\nThe design aesthetic blends **Modern Operational Minimalist** with crisp, structural card architecture. Key attributes:\n- **Tin cậy & Rõ ràng (Trust & Clarity):** Financial totals, occupancy ratios, and room statuses must be scannable within milliseconds.\n- **Thực dụng & Nhanh gọn (Pragmatic Speed):** Compact touch targets, zero ornamental clutter, and instant contextual color coding.\n- **Hiện đại & Sạch sẽ (Clean Polish):** A cool neutral canvas (`#F8FAFC`) framed by a deep, authoritative teal-emerald (`#0F766E`) accentuating stability and property stewardship.\n\n## Colors\n\nThe palette is engineered around high operational contrast, semantic legibility, and Vietnamese business clarity:\n\n- **Primary (`#0D9488` / Deep Emerald Teal):** Anchors operational actions, primary buttons (Tạo phiếu thu, Thêm phòng, Xác nhận), selected tabs, and key navigational headers.\n- **Secondary (`#0F172A` / Slate Midnight):** Used for prominent numerical figures, total revenue amounts, room identifiers (Phòng 101, Căn 3A), and critical text headers.\n- **Tertiary (`#0284C7` / Cyan Blue):** Highlights utility tracking actions (Ghi điện nước, Đồng hồ thông minh, Lịch bảo trì).\n- **Neutral Canvas (`#F8FAFC` to `#F1F5F9`):** Soft, cool-gray backdrop preventing glare during field inspections, providing crisp contrast for pure white cards (`#FFFFFF`).\n\n### Operational Status Tokens (Trạng thái phòng & công nợ)\nStrict semantic colors differentiate room and invoice conditions across all card badges:\n- **Đã thanh toán / Hoạt động tốt (Paid / Settled):** Background `#DCFCE7`, Border `#86EFAC`, Text `#15803D`.\n- **Chưa chốt điện nước / Chờ duyệt (Pending utilities / Pending confirmation):** Background `#FFEDD5`, Border `#FDBA74`, Text `#C2410C`.\n- **Quá hạn / Nợ tiền (Overdue / Debt):** Background `#FEE2E2`, Border `#FCA5A5`, Text `#B91C1C`.\n- **Phòng trống / Ngưng cho thuê (Vacant / Inactive):** Background `#F1F5F9`, Border `#CBD5E1`, Text `#475569`.\n- **Đã đặt cọc (Reserved):** Background `#E0F2FE`, Border `#7DD3FC`, Text `#0369A1`.\n\n## Typography\n\nThe type stack is unified under **Plus Jakarta Sans**, chosen for its tall x-height, open apertures, and impeccable rendering of Vietnamese diacritics (dấu ngã, hỏi, nặng, sắc, huyền). Diacritic stacking remains clear and uncompressed even at condensed label sizes.\n\n- **Monetary & Metric Emphasis:** Currency entries (e.g., `4.500.000 đ`, `38 kWh`) rely on `currency-display` and `title-md` with tabular numeric lining (`font-variant-numeric: tabular-nums`) so utility readings and billing amounts align perfectly in vertical lists.\n- **Labels & Status Pills:** Uses uppercase or capitalized tight tracking (`letter-spacing: 0.02em`) on `label-sm` for immediate recognition inside 22px badges.\n\n## Layout & Spacing\n\nDesigned primarily for standard 375px–430px smartphone viewports with an 8pt-based, compact sub-grid:\n\n- **Mobile Viewport Grid:** 4 columns with `12px` (0.75rem) gutters and `16px` (1rem) safe screen margins.\n- **Room Matrix Grid:** The core room view toggles between a 2-column card grid (390px screens: ~165px card width) and an edge-to-edge compact list view with 8px vertical gaps.\n- **Density Philosophy:** Utility tracking forms (Ghi số điện/nước) favor vertical tightness: 6px to 8px between label and numeric input to maximize screen real estate before the virtual numpad appears.\n- **Safe Zones:** Sticky bottom navigation and quick-action toolbars feature a dedicated `env(safe-area-inset-bottom) + 12px` clearance.\n\n## Elevation & Depth\n\nVisual hierarchy uses a refined hybrid approach: crisp, single-pixel hairline borders combined with soft ambient light scattering.\n\n- **Canvas (Level 0):** Pure background tone `#F8FAFC`.\n- **Card Flat (Level 1):** Background `#FFFFFF`, bordered with `1px solid #E2E8F0`, ambient shadow `0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02)`.\n- **Interactive Card Hover/Active (Level 2):** Applied when selecting a room card or tapping a tenant entry: `0 4px 12px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.04)`, border color switches to `#CBD5E1`.\n- **Sticky Actions & Modals (Level 3):** Bottom sheets (Tạo hóa đơn, Chốt số điện nước) and sticky summaries: `0 -4px 20px rgba(15, 23, 42, 0.08)`, subtle border-top `1px solid #E2E8F0`.\n- **Floating Operational Button (FAB):** Background `#0D9488`, shadow `0 8px 20px rgba(13, 148, 136, 0.35)`.\n\n## Shapes\n\nThe geometry features balanced modern roundedness:\n\n- **Standard Containers & Cards (`rounded-lg` / 16px):** Room units, invoice summary panels, monthly metric cards.\n- **Interactive Controls & Inputs (`rounded` / 10px - 12px):** Form fields, utility meter inputs, primary action buttons.\n- **Badges & Segmented Controls (Full Pill / 9999px):** Status badges (Đã thanh toán, Quá hạn), filter tags (Tầng 1, Tầng 2, Đang nợ), and metric counters.\n- **Bottom Drawers:** Top-left and top-right radii set to `20px` for smooth modal transitions.\n\n## Components\n\n### 1. Room Cards (Thẻ phòng)\n- **Structure:** Pure white card with 12px internal padding.\n- **Header:** Room number (e.g., \"P.203\") in `headline-sm` bold slate `#0F172A` paired with the status pill aligned right.\n- **Body:** Tenant name, current contract end date, and rent amount (`title-sm` in teal `#0D9488`).\n- **Utility Sub-strip:** Subtle divider (`#F1F5F9`) followed by two meter badges: Electricity (⚡ 214 kWh) and Water (💧 18 m³), with an amber dot indicator if readings have not been submitted this month.\n\n### 2. Status Badges (Huy hiệu trạng thái)\n- Height: 24px, padding: 2px 10px, font: `label-sm` bold, border-radius: 9999px.\n- Border thickness: 1px solid, matching the status token configuration.\n- Optional leading 6px pulsing dot for urgent attention (Quá hạn, Chưa chốt).\n\n### 3. Utility Entry Stepper & Inputs (Nhập chỉ số điện nước)\n- Number input fields feature built-in suffix labels (\"kWh\", \"m³\", \"VNĐ\") locked to the right side in `#94A3B8`.\n- Includes an attached \"Ảnh đồng hồ\" (Meter photo) camera icon button directly adjacent to the input field for proof capture.\n- Previous month reading displayed directly beneath the field in `body-sm` muted gray (`Tháng trước: 182 kWh`).\n\n### 4. Financial Summary Cards (Báo cáo doanh thu)\n- High-contrast block at the dashboard head.\n- Total collected vs. Total outstanding (Đã thu vs. Còn nợ) presented in two unequal split cells with distinct background tints (Soft emerald `#F0FDF4` and Soft red `#FEF2F2`).\n\n### 5. Buttons & Actions\n- **Primary Button:** Height 48px, background `#0D9488`, active state `#0F766E`, text white `title-sm`, 12px corner radius.\n- **Quick Action Row:** Horizontal icon pills for instant messaging (Zalo / SMS / Gọi điện) to the tenant with a single tap.\n- **Filter Chips:** Height 32px, outline `#E2E8F0`, active state filled with `#0D9488` text white.",
+                      "font": "PLUS_JAKARTA_SANS",
+                      "headlineFont": "PLUS_JAKARTA_SANS",
+                      "headlineFontFamily": "Plus Jakarta Sans",
+                      "labelFont": "PLUS_JAKARTA_SANS",
+                      "labelFontFamily": "Plus Jakarta Sans",
+                      "namedColors": {
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "error_container": "#ffdad6",
+                        "inverse_on_surface": "#eaf1ff",
+                        "inverse_primary": "#6bd8cb",
+                        "inverse_surface": "#213145",
+                        "on_background": "#0b1c30",
+                        "on_error": "#ffffff",
+                        "on_error_container": "#93000a",
+                        "on_primary": "#ffffff",
+                        "on_primary_container": "#f4fffc",
+                        "on_primary_fixed": "#00201d",
+                        "on_primary_fixed_variant": "#005049",
+                        "on_secondary": "#ffffff",
+                        "on_secondary_container": "#5c647a",
+                        "on_secondary_fixed": "#131b2e",
+                        "on_secondary_fixed_variant": "#3f465c",
+                        "on_surface": "#0b1c30",
+                        "on_surface_variant": "#3d4947",
+                        "on_tertiary": "#ffffff",
+                        "on_tertiary_container": "#fdfcff",
+                        "on_tertiary_fixed": "#001d31",
+                        "on_tertiary_fixed_variant": "#004b73",
+                        "outline": "#6d7a77",
+                        "outline_variant": "#bcc9c6",
+                        "primary": "#00685f",
+                        "primary_container": "#008378",
+                        "primary_fixed": "#89f5e7",
+                        "primary_fixed_dim": "#6bd8cb",
+                        "secondary": "#565e74",
+                        "secondary_container": "#dae2fd",
+                        "secondary_fixed": "#dae2fd",
+                        "secondary_fixed_dim": "#bec6e0",
+                        "surface": "#f8f9ff",
+                        "surface_bright": "#f8f9ff",
+                        "surface_container": "#e5eeff",
+                        "surface_container_high": "#dce9ff",
+                        "surface_container_highest": "#d3e4fe",
+                        "surface_container_low": "#eff4ff",
+                        "surface_container_lowest": "#ffffff",
+                        "surface_dim": "#cbdbf5",
+                        "surface_tint": "#006a61",
+                        "surface_variant": "#d3e4fe",
+                        "tertiary": "#006194",
+                        "tertiary_container": "#007bb9",
+                        "tertiary_fixed": "#cce5ff",
+                        "tertiary_fixed_dim": "#93ccff"
+                      },
+                      "overrideNeutralColor": "#64748b",
+                      "overridePrimaryColor": "#0d9488",
+                      "overrideSecondaryColor": "#0f172a",
+                      "overrideTertiaryColor": "#0284c7",
+                      "roundness": "ROUND_EIGHT",
+                      "spacing": {
+                        "gutter": "0.75rem",
+                        "margin": "1rem",
+                        "space-lg": "1rem",
+                        "space-md": "0.75rem",
+                        "space-sm": "0.5rem",
+                        "space-xl": "1.5rem",
+                        "space-xs": "0.25rem"
+                      },
+                      "spacingScale": 2,
+                      "typography": {
+                        "body-lg": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "15px",
+                          "fontWeight": "400",
+                          "lineHeight": "22px"
+                        },
+                        "body-md": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "13px",
+                          "fontWeight": "400",
+                          "lineHeight": "18px"
+                        },
+                        "body-sm": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "12px",
+                          "fontWeight": "400",
+                          "lineHeight": "16px"
+                        },
+                        "currency-display": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "24px",
+                          "fontWeight": "800",
+                          "lineHeight": "30px"
+                        },
+                        "headline-lg": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "30px",
+                          "fontWeight": "700",
+                          "lineHeight": "38px"
+                        },
+                        "headline-md": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "22px",
+                          "fontWeight": "700",
+                          "lineHeight": "28px"
+                        },
+                        "headline-sm": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "18px",
+                          "fontWeight": "600",
+                          "lineHeight": "24px"
+                        },
+                        "label-md": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "12px",
+                          "fontWeight": "600",
+                          "lineHeight": "16px"
+                        },
+                        "label-sm": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "11px",
+                          "fontWeight": "500",
+                          "lineHeight": "14px"
+                        },
+                        "title-md": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "16px",
+                          "fontWeight": "600",
+                          "lineHeight": "22px"
+                        },
+                        "title-sm": {
+                          "fontFamily": "Plus Jakarta Sans",
+                          "fontSize": "14px",
+                          "fontWeight": "600",
+                          "lineHeight": "20px"
+                        }
+                      }
+                    }
+                  },
+                  "name": "assets/b7d1c53295524176959fc17729dccc83",
+                  "version": "1"
+                },
+                "deviceType": "MOBILE",
+                "generatedBy": "figaro_agent",
+                "height": "2310",
+                "htmlCode": {
+                  "downloadUrl": "https://stitch.googleapis.com/v1/projects/11218801086395076661/files/60c35a4c9dc44ffa8d0740316acb0ef2:download",
+                  "mimeType": "text/html",
+                  "name": "projects/11218801086395076661/files/60c35a4c9dc44ffa8d0740316acb0ef2"
+                },
+                "id": "e52ed83f87dc4dc1a6ad1058b7833a74",
+                "name": "projects/11218801086395076661/screens/e52ed83f87dc4dc1a6ad1058b7833a74",
+                "prompt": "Màn hình di động quản lý danh sách phòng trọ Việt Nam hiện đại, tinh tế và tối ưu thao tác một tay:\n\n1. Header & Tổng quan:\n- Thanh tiêu đề TopAppBar với tên nhà trọ \"Nhà trọ An Cư\", hiển thị tổng số phòng (vd: 18/20 phòng đang thuê), biểu tượng thông báo và avatar chủ trọ.\n- Thẻ tóm tắt nhanh thống kê: Tổng phòng, Đã thu (xanh), Chưa thu / Chưa chốt (cam), Phòng trống (xám).\n- Thanh tìm kiếm mã phòng, tên người thuê kèm nút quét QR và bộ lọc nhanh.\n\n2. Bộ lọc trạng thái (Segmented filter chips cuộn ngang):\n- \"Tất cả\", \"Đã thanh toán (xanh)\", \"Chưa chốt điện nước (cam)\", \"Chờ thu tiền (vàng)\", \"Phòng trống (xám)\".\n\n3. Danh sách phòng trọ chi tiết theo đúng yêu cầu:\n- **Phòng P.101**:\n  + Badge trạng thái: \"Đã thu tiền\" (màu xanh lá emerald/teal mềm mại, có icon check).\n  + Thông tin người thuê: 2 người ở, Tên đại diện (vd: Nguyễn Văn Hùng - 0988 ••• 234).\n  + Tiền thuê: 2.500.000 đ/tháng.\n  + Chỉ số điện: 1030 kWh (kèm chỉ số nước nếu có, hiển thị rõ ràng).\n  + Nút thao tác phụ: \"Xem chi tiết\", \"Xem phiếu thu / Hóa đơn\".\n- **Phòng P.102**:\n  + Badge trạng thái: \"Chưa chốt điện nước\" (màu cam cảnh báo ấm áp, có icon cảnh báo/đồng hồ).\n  + Thông tin người thuê: 3 người ở, Tên đại diện (vd: Trần Thị Mai Anh - 0912 ••• 889).\n  + Tiền thuê: 3.200.000 đ/tháng.\n  + Cảnh báo nổi bật: \"Chưa ghi số điện nước kỳ này\".\n  + Nút hành động nổi bật: Nút \"Ghi điện nước\" (nút màu cam/brand nổi bật, dễ bấm) và nút \"Chi tiết\".\n- **Phòng P.103**:\n  + Badge trạng thái: \"Phòng trống\" (màu xám thanh lịch, icon phòng mở/trống).\n  + Giá niêm yết: 2.800.000 đ/tháng.\n  + Tiện ích: Đầy đủ nội thất (Điều hòa, nóng lạnh, giường tủ...).\n  + Nút hành động: \"Thêm khách thuê\", \"Đăng tin tìm khách\".\n\n4. Thanh thao tác cố định dưới cùng (Action Bar / Bottom Bar):\n- 2 nút hành động chính cố định phía trên bottom nav hoặc tích hợp floating bar:\n  + Nút \"⚡ Ghi điện nước\" (Outline hoặc Secondary button hiện đại).\n  + Nút \"📝 Lập hoá đơn\" (Primary button với màu chủ đạo #0d9488, nổi bật, có badge số lượng nếu cần).\n- Bottom Navigation bar quen thuộc (Tổng quan, Phòng trọ [active], Điện nước, Thu chi, Cá nhân).\n\nThiết kế giao diện tiếng Việt chuẩn hóa, typography Plus Jakarta Sans sạch đẹp, các card phòng có độ nổi khối nhẹ (shadow-sm, viền bo tròn bo 12-16px), các badge màu sắc tương phản rõ ràng, chuẩn UI ứng dụng quản lý nhà trọ chuyên nghiệp tại Việt Nam.",
+                "screenMetadata": {
+                  "agentType": "PRO_AGENT",
+                  "status": "COMPLETE"
+                },
+                "screenType": "DESIGN",
+                "screenshot": {
+                  "downloadUrl": "https://stitch.googleapis.com/v1/projects/11218801086395076661/files/fed9759ffe9e41749db611cad5acf86b:download",
+                  "name": "projects/11218801086395076661/files/fed9759ffe9e41749db611cad5acf86b"
+                },
+                "theme": {
+                  "bodyFont": "PLUS_JAKARTA_SANS",
+                  "bodyFontFamily": "Plus Jakarta Sans",
+                  "colorMode": "LIGHT",
+                  "colorVariant": "FIDELITY",
+                  "customColor": "#0d9488",
+                  "font": "PLUS_JAKARTA_SANS",
+                  "headlineFont": "PLUS_JAKARTA_SANS",
+                  "headlineFontFamily": "Plus Jakarta Sans",
+                  "labelFont": "PLUS_JAKARTA_SANS",
+                  "labelFontFamily": "Plus Jakarta Sans",
+                  "namedColors": {
+                    "background": "#f8f9ff",
+                    "error": "#ba1a1a",
+                    "error_container": "#ffdad6",
+                    "inverse_on_surface": "#eaf1ff",
+                    "inverse_primary": "#6bd8cb",
+                    "inverse_surface": "#213145",
+                    "on_background": "#0b1c30",
+                    "on_error": "#ffffff",
+                    "on_error_container": "#93000a",
+                    "on_primary": "#ffffff",
+                    "on_primary_container": "#f4fffc",
+                    "on_primary_fixed": "#00201d",
+                    "on_primary_fixed_variant": "#005049",
+                    "on_secondary": "#ffffff",
+                    "on_secondary_container": "#5c647a",
+                    "on_secondary_fixed": "#131b2e",
+                    "on_secondary_fixed_variant": "#3f465c",
+                    "on_surface": "#0b1c30",
+                    "on_surface_variant": "#3d4947",
+                    "on_tertiary": "#ffffff",
+                    "on_tertiary_container": "#fdfcff",
+                    "on_tertiary_fixed": "#001d31",
+                    "on_tertiary_fixed_variant": "#004b73",
+                    "outline": "#6d7a77",
+                    "outline_variant": "#bcc9c6",
+                    "primary": "#00685f",
+                    "primary_container": "#008378",
+                    "primary_fixed": "#89f5e7",
+                    "primary_fixed_dim": "#6bd8cb",
+                    "secondary": "#565e74",
+                    "secondary_container": "#dae2fd",
+                    "secondary_fixed": "#dae2fd",
+                    "secondary_fixed_dim": "#bec6e0",
+                    "surface": "#f8f9ff",
+                    "surface_bright": "#f8f9ff",
+                    "surface_container": "#e5eeff",
+                    "surface_container_high": "#dce9ff",
+                    "surface_container_highest": "#d3e4fe",
+                    "surface_container_low": "#eff4ff",
+                    "surface_container_lowest": "#ffffff",
+                    "surface_dim": "#cbdbf5",
+                    "surface_tint": "#006a61",
+                    "surface_variant": "#d3e4fe",
+                    "tertiary": "#006194",
+                    "tertiary_container": "#007bb9",
+                    "tertiary_fixed": "#cce5ff",
+                    "tertiary_fixed_dim": "#93ccff"
+                  },
+                  "overrideNeutralColor": "#64748b",
+                  "overridePrimaryColor": "#0d9488",
+                  "overrideSecondaryColor": "#0f172a",
+                  "overrideTertiaryColor": "#0284c7",
+                  "roundness": "ROUND_EIGHT",
+                  "spacing": {
+                    "gutter": "0.75rem",
+                    "margin": "1rem",
+                    "space-lg": "1rem",
+                    "space-md": "0.75rem",
+                    "space-sm": "0.5rem",
+                    "space-xl": "1.5rem",
+                    "space-xs": "0.25rem"
+                  },
+                  "spacingScale": 2,
+                  "typography": {
+                    "body-lg": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "15px",
+                      "fontWeight": "400",
+                      "lineHeight": "22px"
+                    },
+                    "body-md": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "13px",
+                      "fontWeight": "400",
+                      "lineHeight": "18px"
+                    },
+                    "body-sm": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "12px",
+                      "fontWeight": "400",
+                      "lineHeight": "16px"
+                    },
+                    "currency-display": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "24px",
+                      "fontWeight": "800",
+                      "lineHeight": "30px"
+                    },
+                    "headline-lg": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "30px",
+                      "fontWeight": "700",
+                      "lineHeight": "38px"
+                    },
+                    "headline-md": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "22px",
+                      "fontWeight": "700",
+                      "lineHeight": "28px"
+                    },
+                    "headline-sm": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "18px",
+                      "fontWeight": "600",
+                      "lineHeight": "24px"
+                    },
+                    "label-md": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "12px",
+                      "fontWeight": "600",
+                      "lineHeight": "16px"
+                    },
+                    "label-sm": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "11px",
+                      "fontWeight": "500",
+                      "lineHeight": "14px"
+                    },
+                    "title-md": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "16px",
+                      "fontWeight": "600",
+                      "lineHeight": "22px"
+                    },
+                    "title-sm": {
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": "14px",
+                      "fontWeight": "600",
+                      "lineHeight": "20px"
+                    }
+                  }
+                },
+                "title": "Quản lý danh sách phòng trọ",
+                "width": "780"
+              }
+            ],
+            "theme": {}
+          }
+        },
+        {
+          "text": "Tôi đã thiết kế xong giao diện di động quản lý danh sách phòng trọ chuẩn Việt Nam theo đúng yêu cầu chi tiết của bạn:\n\n### Các điểm nổi bật trong thiết kế:\n1. **Thống kê & Bộ lọc trạng thái**:\n   - Thẻ thống kê tổng quan nhanh: Tổng số (20), Đã thu (14), Chưa chốt (4), Trống (2).\n   - Thanh tìm kiếm thông minh kết hợp quét mã QR và bộ lọc trạng thái cuộn ngang (Tất cả, Đã thanh toán, Chưa chốt điện nước, Phòng trống).\n\n2. **Chi tiết danh sách phòng theo từng trạng thái cụ thể**:\n   - **Phòng P.101**: Badge **\"Đã thu tiền\"** (xanh lá), thông tin 2 người ở, giá thuê **2.500.000 đ/tháng**, chỉ số điện rõ ràng **1030 kWh**, kèm nút xem chi tiết và hóa đơn.\n   - **Phòng P.102**: Badge **\"Chưa chốt điện nước\"** (màu cam cảnh báo), thông tin 3 người ở, giá thuê 3.200.000 đ/tháng, khối cảnh báo nổi bật kèm nút hành động chính **\"Ghi điện nước\"**.\n   - **Phòng P.103**: Badge **\"Phòng trống\"** (màu xám trung tính), giá niêm yết, danh sách tiện ích nội thất sẵn có cùng thao tác thêm khách thuê nhanh.\n\n3. **Thao tác nhanh & Điều hướng**:\n   - Thanh thao tác nhanh hỗ trợ chốt điện nước và lập hóa đơn, cùng thanh điều hướng dưới đáy (*Tổng quan, Phòng trọ, Điện nước, Thu chi, Cá nhân*) chuẩn UX app di động."
+        },
+        {
+          "suggestion": "Thiết kế màn hình chi tiết khi bấm 'Ghi điện nước' cho phòng P.102"
+        },
+        {
+          "suggestion": "Thiết kế popup/màn hình 'Lập hoá đơn' tổng hợp toàn bộ khu trọ"
+        },
+        {
+          "suggestion": "Thêm tính năng gửi thông báo nhắc tiền phòng qua Zalo/SMS"
+        }
+      ],
+      "projectId": "11218801086395076661",
+      "sessionId": "14650308672696555311"
+    }
+  }
+}
