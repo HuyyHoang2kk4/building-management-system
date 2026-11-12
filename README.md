@@ -23,6 +23,8 @@ Hệ thống giúp chủ nhà và người quản lý số hoá toàn bộ quy t
 |-----------|-------|
 | [BRD](docs/01_BRD_He_thong_quan_ly_toa_nha.md) | Yêu cầu nghiệp vụ (Business Requirements Document) |
 | [SRS](docs/02_SRS_He_thong_quan_ly_toa_nha.md) | Đặc tả yêu cầu phần mềm (Software Requirements Specification - Phiên bản 2.0) |
+| [Detailed Design](docs/03_Detailed_Design_He_thong_quan_ly_nha_cho_thue.md) | Tài liệu thiết kế chi tiết hệ thống Microservices (Angular + Python FastAPI) |
+| [Prototype Screens](docs/stitch_screens/index.html) | Bộ mã HTML & ảnh giao diện tương tác từ Google Stitch |
 
 ## Tác giả
 
